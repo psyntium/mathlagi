@@ -96,7 +96,7 @@
             <div id="math-content" class="font-monospace">
 
                 <div class="row">
-                    <div class="col">&nbsp;</div>
+                    <div id="score" class="col align-self-end text-end">&nbsp;</div>
                 </div>
                 <div class="row">
                     <div class="col"></div>
@@ -286,6 +286,7 @@
         function setFontSize(size) {
             $("#math-content").css({ 'font-size': size + "px" });
             $("#math-content input").css({ 'font-size': size + "px" });
+            $("#score").css({ 'font-size': parseInt(size/4) + "px" });
         }
 
         function fixInput(that) {
@@ -357,6 +358,11 @@
                 if (q.l1 * q.l2 === a) aList[i].m = true;
                 else aList[i].m = false;
             }
+            const c = aList.filter(function (a) {
+                return a.m;
+            })
+            const cp = parseInt((c * 100) / qSize) / 100;
+            $("#score").html(cp + "%")
             $(".toast").removeClass("show")
         }
 
