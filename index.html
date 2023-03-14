@@ -86,8 +86,8 @@
                 
                 <nav class="nav justify-content-end">
                 <!-- <nav class="nav nav-masthead justify-content-center float-md-end"> -->
-                    <a id="btnReset" class="nav-link" href="#"><i class="bi-arrow-clockwise"></i></a>
-                    <a id="btnSubmitAll" class="nav-link" href="#"><i class="bi-send"></i></a>
+                    <a id="btnReset" class="nav-link" href="#"><i class="bi-arrow-clockwise"></i> Reset</a>
+                    <a id="btnSubmitAll" class="nav-link" href="#"><i class="bi-send"></i> Done</a>
                 </nav>
             </div>
         </header>
@@ -130,7 +130,7 @@
                 <div class="row border-top border-3 mt-1"></div>
 
             </div>
-            <div class="row py-5">
+            <div class="row py-3">
                 <div class="col d-grid"><button id="prevQ" type="button" class="btn btn-success btn-lg">&lt;&lt;</button></div>
                 <div class="col d-grid"><button id="nextQ" type="button" class="btn btn-success btn-lg">&gt;&gt;</button></div>
             </div>
@@ -202,17 +202,22 @@
             $("#btnSubmitAll").click(function () {
                 $("#toastSubmit").show().addClass("show").removeClass("hide")
             })
-            $("#btnResetYes").click(init)
-            $("#btnSubmitAllYes").click(checkAnswerAll)
+            $("#btnResetYes").click(function() {
+                $(this).parents(".toast").hide().removeClass("show").addClass("hide")
+                init();
+            })
+            $("#btnSubmitAllYes").click(function() {
+                $(this).parents(".toast").hide().removeClass("show").addClass("hide")
+                checkAnswerAll()
+            });
 
             $(".btn-close-toast").click(function () {
-                $(this).parents(".toast").removeClass("show").addClass("hide")
+                $(this).parents(".toast").hide().removeClass("show").addClass("hide")
             })
             
         });
 
         function init() {
-            console.log("init")
             qList = [];
             aList = [];
             for (var i = 0; i < qSize; i++) {
@@ -227,8 +232,10 @@
             time = new Date().getTime();
             stopTime = false;
             setTime();
-            setQuestion(0);
+            currentQ = 0
+            setQuestion(currentQ);
             $(".toast").removeClass("show");
+            $("#score").html("");
         }
 
         function nextQuestion() {
@@ -296,9 +303,9 @@
         function setFontSize(size) {
             $("#math-content").css({ 'font-size': size + "px" });
             $("#math-content input").css({ 'font-size': size + "px" });
-            $("#posQ").css({ 'font-size': parseInt(size/4) + "px" });
-            $("#score").css({ 'font-size': parseInt(size/4) + "px" });
-            $("#timer").css({ 'font-size': parseInt(size/4) + "px" });
+            $("#timer").css({ 'font-size': parseInt(size/6) + "px" });
+            $("#posQ").css({ 'font-size': parseInt(size/6) + "px" });
+            $("#score").css({ 'font-size': parseInt(size/6) + "px" });
         }
 
         function fixInput(that) {
