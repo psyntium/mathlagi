@@ -130,19 +130,19 @@
                 <div class="row border-top border-3 mt-1"></div>
 
             </div>
-            <div class="d-grid py-5">
-                <button id="submit" type="button" class="btn btn-primary btn-lg">SUBMIT</button>
+            <div class="row py-5">
+                <div class="col d-grid"><button id="prevQ" type="button" class="btn btn-success btn-lg">&lt;&lt;</button></div>
+                <div class="col d-grid"><button id="nextQ" type="button" class="btn btn-success btn-lg">&gt;&gt;</button></div>
             </div>
         </main>
 
-        <footer class="mt-auto text-white-50 row">
-            <div class="col d-grid"><button id="prevQ" type="button" class="btn btn-success btn-lg">&lt;&lt;</button></div>
-            <div class="col d-grid"><button id="nextQ" type="button" class="btn btn-success btn-lg">&gt;&gt;</button></div>
+        <footer class="mt-auto text-white-50 row d-grid">
+            <button id="submit" type="button" class="btn btn-primary btn-lg">SUBMIT</button>
         </footer>
     </div>
 
     <div class="position-fixed top-0 start-0" style="z-index: 1000">
-        <div id="toastReset" class="toast position-fixed top-50 start-50 translate-middle p-3" role="alert" aria-live="assertive"
+        <div id="toastReset" class="toast hide bg-white text-dark position-fixed top-50 start-50 translate-middle p-3" role="alert" aria-live="assertive"
             aria-atomic="true">
             <div class="toast-body">
                 Reset?
@@ -152,7 +152,7 @@
                 </div>
             </div>
         </div>
-        <div id="toastSubmit" class="toast position-fixed top-50 start-50 translate-middle p-3" role="alert" aria-live="assertive"
+        <div id="toastSubmit" class="toast hide bg-white text-dark position-fixed top-50 start-50 translate-middle p-3" role="alert" aria-live="assertive"
             aria-atomic="true">
             <div class="toast-body">
                 Submit All?
@@ -197,21 +197,22 @@
             $("#prevQ").click(prevQuestion)
             $("#submit").click(checkAnswer)
             $("#btnReset").click(function () {
-                $("#toastReset").show().addClass("show")
+                $("#toastReset").show().addClass("show").removeClass("hide")
             })
             $("#btnSubmitAll").click(function () {
-                $("#toastSubmit").show().addClass("show")
+                $("#toastSubmit").show().addClass("show").removeClass("hide")
             })
             $("#btnResetYes").click(init)
             $("#btnSubmitAllYes").click(checkAnswerAll)
 
             $(".btn-close-toast").click(function () {
-                $(this).parents(".toast").removeClass("show")
+                $(this).parents(".toast").removeClass("show").addClass("hide")
             })
             
         });
 
         function init() {
+            console.log("init")
             qList = [];
             aList = [];
             for (var i = 0; i < qSize; i++) {
@@ -224,6 +225,7 @@
                 aList.push({ a: 0 })
             }
             time = new Date().getTime();
+            stopTime = false;
             setTime();
             setQuestion(0);
             $(".toast").removeClass("show");
