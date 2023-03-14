@@ -361,7 +361,7 @@
             const c = aList.filter(function (a) {
                 return a.m;
             })
-            const cp = parseInt((c * 100) / qSize) / 100;
+            const cp = parseInt((c.length * 100) / qSize);
             $("#score").html(cp + "%")
             $(".toast").removeClass("show")
         }
