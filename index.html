@@ -83,7 +83,7 @@
             <div>
                 <h3 class="float-md-start mb-0">MathLagi</h3>
                 
-                <h3 id="posQ"class="float-md-start mb-0 px-5"></h3>
+                
                 <nav class="nav justify-content-end">
                 <!-- <nav class="nav nav-masthead justify-content-center float-md-end"> -->
                     <a id="btnReset" class="nav-link" href="#"><i class="bi-arrow-clockwise"></i></a>
@@ -95,7 +95,9 @@
         <main class="px-3">
             <div id="math-content" class="font-monospace">
 
-                <div class="row">
+                <div class="row border-bottom border-top border-1">
+                    <div id="timer" class="col align-self-start text-start">&nbsp;</div>
+                    <div id="posQ" class="col align-self-center text-center">&nbsp;</div>
                     <div id="score" class="col align-self-end text-end">&nbsp;</div>
                 </div>
                 <div class="row">
@@ -125,6 +127,7 @@
                     </div>
                     <div id="mark" class="col"></div>
                 </div>
+                <div class="row border-top border-3 mt-1"></div>
 
             </div>
             <div class="d-grid py-5">
@@ -177,9 +180,12 @@
         const end = 12;
         const qSize = 20;
         var currentQ = 0;
+        var time = new Date().getTime();
 
         var qList = [];
         var aList = [];
+
+        var stopTime = false;
         
         $(document).ready(function () {
             resizeFont();
@@ -217,6 +223,8 @@
                 })
                 aList.push({ a: 0 })
             }
+            time = new Date().getTime();
+            setTime();
             setQuestion(0);
             $(".toast").removeClass("show");
         }
@@ -286,7 +294,9 @@
         function setFontSize(size) {
             $("#math-content").css({ 'font-size': size + "px" });
             $("#math-content input").css({ 'font-size': size + "px" });
+            $("#posQ").css({ 'font-size': parseInt(size/4) + "px" });
             $("#score").css({ 'font-size': parseInt(size/4) + "px" });
+            $("#timer").css({ 'font-size': parseInt(size/4) + "px" });
         }
 
         function fixInput(that) {
@@ -364,6 +374,7 @@
             const cp = parseInt((c.length * 100) / qSize);
             $("#score").html(cp + "%")
             $(".toast").removeClass("show")
+            stopTime = true;
         }
 
         function getDigit(num, digit) {
@@ -373,6 +384,17 @@
 
         function genNum(start, end) {
             return parseInt(Math.random() * (end - start + 1)) + start;
+        }
+
+        function setTime() {
+            if (stopTime) return;
+            var s = parseInt((new Date().getTime() - time) / 1000);
+            var m = parseInt(s/60);
+            s = s % 60;
+            var timer = m + ":" + ("00"+s).substr(-2);
+            $("#timer").html(timer)
+
+            setTimeout(setTime, 500);
         }
     </script>
 </body>
