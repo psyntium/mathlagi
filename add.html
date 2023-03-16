@@ -121,7 +121,7 @@
                 <div class="col d-grid"><button id="nextQ" type="button" class="btn btn-success btn-lg btn-arrow">&gt;&gt;</button></div>
             </div>
             <div class="d-grid">
-                <button id="submit" type="button" class="btn btn-primary btn-lg">SUBMIT</button>
+                <button id="btnSubmit" type="button" class="btn btn-primary btn-lg">SUBMIT</button>
             </div>
         </footer>
     </div>
@@ -203,6 +203,10 @@
             $("#btnSubmitAllYes").click(function() {
                 hide($(this).parents(".toast"))
                 checkAnswerAll()
+            });
+            $("#btnSubmitYes").click(function() {
+                hide($(this).parents(".toast"))
+                checkAnswer()
             });
 
             $(".btn-close-toast").click(function () {
