@@ -15,19 +15,6 @@
 
 
     <style>
-        .btn-secondary,
-        .btn-secondary:hover,
-        .btn-secondary:focus {
-            color: #333;
-            text-shadow: none;
-            /* Prevent inheritance from `body` */
-        }
-
-
-        /*
- * Base structure
- */
-
         body {
             text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
             box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
@@ -37,87 +24,105 @@
             max-width: 42em;
         }
 
-
-        /*
- * Header
- */
-
         .nav-link {
             font-weight: 700;
             color: rgba(255, 255, 255, .5);
             background-color: transparent;
         }
 
-        .px-3 {
-            overflow: auto;
+        .num_hint {
+            top: 10%;
+            left: 10%;
+        }
+
+        .answer {
+            right: 10%;
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
         }
         
     </style>
 </head>
 
-<body class="d-flex h-100 text-center text-white bg-dark">
+<body class="d-flex h-100 bg-dark text-white text-center user-select-none">
 
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
         <header class="mb-auto">
-            <div>
-                <h3 class="float-md-start mb-0">MathLagi : Multiplication</h3>
-                
+            <div class="border-bottom border-1">
+                <h3 class="float-md-start mb-0">MathLagi : <span class="font-monospace">Multiplication</span></h3>
                 
                 <nav class="nav justify-content-end">
-                <!-- <nav class="nav nav-masthead justify-content-center float-md-end"> -->
-                    <a id="btnMode" class="nav-link" href="#"><i class="bi-gear-wide-connected"></i> Mode</a>
-                    <a id="btnReset" class="nav-link" href="#"><i class="bi-arrow-clockwise"></i> Reset</a>
-                    <a id="btnSubmitAll" class="nav-link" href="#"><i class="bi-send"></i> Done</a>
+                    <a id="btnHome" class="nav-link ps-0" href="index.html"><i class="bi-house"></i> Home</a>
+                    <a id="btnMode" class="nav-link ps-0" href="#"><i class="bi-gear-wide-connected"></i> Mode</a>
+                    <a id="btnReset" class="nav-link ps-0" href="#"><i class="bi-arrow-clockwise"></i> Reset</a>
+                    <a id="btnSubmitAll" class="nav-link ps-0" href="#"><i class="bi-send"></i> Done</a>
                 </nav>
+            </div>
+
+            <div class="border-bottom border-1 pt-1 pb-0">
+                <div class="row">
+                    <div id="timer" class="col h4 align-self-start text-start">&nbsp;</div>
+                    <div id="posQ"  class="col h4 align-self-center text-center">&nbsp;</div>
+                    <div id="score" class="col h4 align-self-end text-end">&nbsp;</div>
+                </div>
             </div>
         </header>
 
-        <main class="px-3">
-            <div id="math-content" class="font-monospace">
+        <main class="overflow-auto px-3">
+            <div id="math-content" class="font-monospace my-5">
 
-                <div class="row border-bottom border-top border-1">
-                    <div id="timer" class="col align-self-start text-start">&nbsp;</div>
-                    <div id="posQ" class="col align-self-center text-center">&nbsp;</div>
-                    <div id="score" class="col align-self-end text-end">&nbsp;</div>
-                </div>
-                <div class="row">
+                <div class="row ">
                     <div class="col"></div>
                     <div class="col"></div>
-                    <div id="l1_1" class="col">9</div>
-                    <div id="l1_2" class="col">9</div>
+                    <div class="col position-relative"><span id="l1_2" class="num">&nbsp;</span><span class="position-absolute num_hint">&nbsp;</span></div>
+                    <div class="col"><span id="l1_1" class="num">&nbsp;</span></div>
                     <div class="col"></div>
                 </div>
                 <div class="row">
                     <div class="col"></div>
-                    <div class="col">&times;</div>
-                    <div id="l2_1" class="col">9</div>
-                    <div id="l2_2" class="col">9</div>
+                    <div class="col">&Cross;</div>
+                    <div class="col"><span id="l2_2" class="num">&nbsp;</span></div>
+                    <div class="col"><span id="l2_1" class="num">&nbsp;</span></div>
                     <div class="col"></div>
                 </div>
                 <div class="row border-top border-bottom border-5">
                     <div class="col"></div>
-                    <div class="col">
-                        <input id="a1" type="number" class="bg-dark text-white form-control text-center p-0" maxlength="1" max="9" min="0"/>
+                    <div class="col position-relative border-start border-1">
+                        <input id="a3" type="number" class="bg-dark text-white form-control text-center border-0 p-0" pattern="[0-9]*" inputmode="numeric" maxlength="1" max="9" min="0"/>
+                        <span class="position-absolute top-0 answer text-danger"></span>
                     </div>
-                    <div class="col">
-                        <input id="a2" type="number" class="bg-dark text-white form-control text-center p-0" maxlength="1" max="9" min="0"/>
+                    <div class="col position-relative border-start border-1">
+                        <input id="a2" type="number" class="bg-dark text-white form-control text-center border-0 p-0" pattern="[0-9]*" inputmode="numeric" maxlength="1" max="9" min="0"/>
+                        <span class="position-absolute top-0 answer text-danger"></span>
                     </div>
-                    <div class="col">
-                        <input id="a3" type="number" class="bg-dark text-white form-control text-center p-0" maxlength="1" max="9" min="0"/>
+                    <div class="col position-relative border-start border-1 border-end">
+                        <input id="a1" type="number" class="bg-dark text-white form-control text-center border-0 p-0" pattern="[0-9]*" inputmode="numeric" maxlength="1" max="9" min="0"/>
+                        <span class="position-absolute top-0 answer text-danger"></span>
                     </div>
                     <div id="mark" class="col"></div>
                 </div>
                 <div class="row border-top border-3 mt-1"></div>
 
             </div>
-            <div class="row py-3">
-                <div class="col d-grid"><button id="prevQ" type="button" class="btn btn-success btn-lg">&lt;&lt;</button></div>
-                <div class="col d-grid"><button id="nextQ" type="button" class="btn btn-success btn-lg">&gt;&gt;</button></div>
-            </div>
         </main>
 
-        <footer class="mt-auto text-white-50 row d-grid">
-            <button id="submit" type="button" class="btn btn-primary btn-lg">SUBMIT</button>
+        <footer class="mt-auto text-white-50">
+            <div class="row py-3">
+                <div class="col d-grid"><button id="prevQ" type="button" class="btn btn-success btn-lg btn-arrow">&lt;&lt;</button></div>
+                <div class="col d-grid"><button id="nextQ" type="button" class="btn btn-success btn-lg btn-arrow">&gt;&gt;</button></div>
+            </div>
+            <div class="row d-grid">
+                <button id="submit" type="button" class="btn btn-primary btn-lg">SUBMIT</button>
+            </div>
         </footer>
     </div>
 
@@ -151,9 +156,10 @@
     <script>
         const start = 2;
         const end = 12;
+        const lSize = 2;
         const qSize = 20;
         var currentQ = 0;
-        var time = new Date().getTime();
+        var time = getTime();
 
         var qList = [];
         var aList = [];
@@ -164,11 +170,13 @@
             resizeFont();
             $("input").on("input", fixInput)
             $(window).resize(resetFont);
+
             init();
             
             $("#nextQ").click(nextQuestion)
             $("#prevQ").click(prevQuestion)
             $("#submit").click(checkAnswer)
+
             $("#btnReset").click(function () {
                 show($("#toastReset"))
             })
@@ -187,6 +195,8 @@
             $(".btn-close-toast").click(function () {
                 hide($(this).parents(".toast"))
             })
+
+            $(".num").click(setNumHint)
             
         });
 
@@ -194,19 +204,21 @@
             qList = [];
             aList = [];
             for (var i = 0; i < qSize; i++) {
-                const num1 = genNum(start, end);
-                const num2 = genNum(start, end);
-                qList.push({
-                    l1: num1,
-                    l2: num2
-                })
+                const q = [];
+                for (var j = 0; j < lSize; j++) {
+                    q.push(genNum(start, end))
+                }
+                qList.push(q)
                 aList.push({ a: 0 })
             }
-            time = new Date().getTime();
+
+            time = getTime();
             stopTime = false;
             setTime();
+            
             currentQ = 0
             setQuestion(currentQ);
+            
             $(".toast").removeClass("show");
             $("#score").html("");
         }
@@ -224,34 +236,22 @@
         }
 
         function setQuestion(num) {
-            const q = qList[num]
-            const l1 = q.l1;
-            const l2 = q.l2;
-            const l1_1 = parseInt(l1 / 10);
-            const l2_1 = parseInt(l2 / 10);
-            const l1_2 = l1 - (l1_1 * 10);
-            const l2_2 = l2 - (l2_1 * 10);
+            $(".num_hint").html("")
+            $(".num").html("")
 
-            if (l1_1) $("#l1_1").html(l1_1);
-            else $("#l1_1").html("");
-            $("#l1_2").html(l1_2);
+            const q = qList[num];
+
+            q.forEach(function (qNum, i) {
+                const qNumR = getReverseNum(qNum);
+                qNumR.forEach(function (qCol, j) {
+                    $("#l" + (i + 1) + "_" + (j + 1)).html(qCol);
+                })
+            })
             
-            if (l2_1) $("#l2_1").html(l2_1);
-            else $("#l2_1").html("");
-            $("#l2_2").html(l2_2);
-
-            if (currentQ === 0) {
-                $("#prevQ").addClass("d-none");
-            } else {
-                $("#prevQ").removeClass("d-none");
-            }
-
-            if (currentQ >= qSize - 1) {
-                $("#nextQ").addClass("d-none");
-            } else {
-                $("#nextQ").removeClass("d-none");
-            }
-
+            $(".btn-arrow").removeClass("d-none");
+            if (currentQ >= qSize - 1) $("#nextQ").addClass("d-none");
+            else if (currentQ === 0)   $("#prevQ").addClass("d-none");
+            
             setAnswer();
             $("#posQ").html((currentQ + 1) + " / " + qSize)
         }
@@ -261,7 +261,7 @@
             resizeFont();
         }
 
-        var fs = 10;
+        var fs = 40;
         function resizeFont() {
             fs++;
             setFontSize(fs);
@@ -274,15 +274,21 @@
         }
 
         function setFontSize(size) {
+            var hSize = parseInt(size / 6)
+            if (hSize < 20) hSize = 20;
+            var nSize = parseInt(size / 10)
+            if (nSize < 10) nSize = 10;
             $("#math-content").css({ 'font-size': size + "px" });
             $("#math-content input").css({ 'font-size': size + "px" });
-            $("#timer").css({ 'font-size': parseInt(size/6) + "px" });
-            $("#posQ").css({ 'font-size': parseInt(size/6) + "px" });
-            $("#score").css({ 'font-size': parseInt(size/6) + "px" });
+            $("#timer").css({ 'font-size': hSize + "px" });
+            $("#posQ").css({ 'font-size': hSize + "px" });
+            $("#score").css({ 'font-size': hSize + "px" });
+            $(".num_hint").css({ 'font-size': nSize + "px" });
+            $(".answer").css({ 'font-size': parseInt(size/2) + "px" });
         }
 
         function fixInput(that) {
-            $("#math-content input").each(function (index) {
+            $("#math-content input").each(function () {
                 if ($(this).val() === "") return;
                 if (parseInt($(this).val()) != $(this).val()) {
                     $(this).val(parseInt($(this).val()))
@@ -300,11 +306,11 @@
         }
 
         function saveAnswer() {
-            const a1 = parseInt($("#a1").val() || 0) * 100;
-            const a2 = parseInt($("#a2").val() || 0) * 10;
-            const a3 = parseInt($("#a3").val() || 0) * 1;
-            const a = a1 + a2 + a3;
-            aList[currentQ].a = a;
+            const a = [];
+            for (var i = 0; i < 10; i++) {
+                a.push($("#a" + (i+1)).val() || 0)
+            }
+            aList[currentQ].a = parseInt(a.reverse().join(""));
         }
 
         function setAnswer() {
@@ -312,9 +318,9 @@
             $("#mark").html("");
 
             const a = aList[currentQ].a;
-            var a3 = getDigit(a, 1)
+            var a1 = getDigit(a, 1)
             var a2 = getDigit(a, 2)
-            var a1 = getDigit(a, 3)
+            var a3 = getDigit(a, 3)
             if (!a1) a1 = "";
             $("#a1").val(a1);
             if (!a1 && !a2) a2 = ""
@@ -331,7 +337,7 @@
             saveAnswer();
             const q = qList[currentQ];
             const a = aList[currentQ].a;
-            if (q.l1 * q.l2 === a) {
+            if (mathMul(q) === a) {
                 $("#mark").html("&check;").addClass("text-success").removeClass("text-danger")
                 aList[currentQ].m = true;
             } else {
@@ -344,33 +350,64 @@
 
         function checkAnswerAll() {
             checkAnswer();
-            for (var i = 0; i < qSize; i++) {
-                const q = qList[i];
+            qList.forEach(function(q, i) {
                 const a = aList[i].a;
-                if (q.l1 * q.l2 === a) aList[i].m = true;
+
+                if (mathMul(q) === a) aList[i].m = true;
                 else aList[i].m = false;
-            }
+            })
             const c = aList.filter(function (a) {
                 return a.m;
             })
+
             const cp = parseInt((c.length * 100) / qSize);
             $("#score").html(cp + "%")
             $(".toast").removeClass("show")
             stopTime = true;
         }
 
+        function getReverseNum(num) {
+            const n = "" + (num || 0).toString()
+            return n.split("").reverse()
+        }
+
         function getDigit(num, digit) {
-            num = "0000" + (num || 0).toString()
-            return parseInt(num.split("").reverse()[digit - 1])
+            const n = getReverseNum(num)
+            return parseInt(n[digit - 1] || "")
         }
 
         function genNum(start, end) {
             return parseInt(Math.random() * (end - start + 1)) + start;
         }
 
+        function setNumHint(that) {
+            const currEl = that.currentTarget;
+            const el = $(currEl).next(".num_hint");
+            var num = (parseInt(el.html()) || 0) + 1
+            num = num % 10;
+            if (num === 0) num = ""
+            el.html(num)
+        }
+
+        function mathSum(arr) {
+            var t = 0;
+            arr.forEach(function (i) {
+                t += parseInt(i);
+            })
+            return t
+        }
+
+        function mathMul(arr) {
+            var t = 1;
+            arr.forEach(function (i) {
+                t *= parseInt(i);
+            })
+            return t
+        }
+
         function setTime() {
             if (stopTime) return;
-            var s = parseInt((new Date().getTime() - time) / 1000);
+            var s = parseInt((getTime() - time) / 1000);
             var m = parseInt(s/60);
             s = s % 60;
             var timer = m + ":" + ("00"+s).substr(-2);
@@ -385,6 +422,10 @@
 
         function hide(j) {
             j.hide().removeClass("show").addClass("hide")
+        }
+
+        function getTime() {
+            return new Date().getTime();
         }
     </script>
 </body>
