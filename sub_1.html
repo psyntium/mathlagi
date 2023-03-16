@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>MathLagi v0.1 - Division</title>
+    <title>MathLagi v0.1 - Subtraction - Level 1</title>
 
     <!-- Bootstrap core CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -58,11 +58,11 @@
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
         <header class="mb-auto">
             <div class="border-bottom border-1">
-                <h3 class="float-md-start mb-0">MathLagi : <span class="font-monospace">&divide;</span> : <span class="font-monospace">1</span></h3>
+                <h3 class="float-md-start mb-0">MathLagi : <span class="font-monospace">&minus;</span> : <span class="font-monospace">1</span></h3>
                 
                 <nav class="nav justify-content-end">
                     <a id="btnHome" class="nav-link ps-0" href="index.html"><i class="bi-house"></i> Home</a>
-                    <a id="btnLevel" class="nav-link ps-0" href="#"><i class="bi-speedometer"></i> Level</a>
+                    <a id="btnLevel" class="nav-link ps-0" href="sub.html"><i class="bi-speedometer"></i> Level</a>
                     <a id="btnReset" class="nav-link ps-0" href="#"><i class="bi-arrow-clockwise"></i> Reset</a>
                     <a id="btnSubmitAll" class="nav-link ps-0" href="#"><i class="bi-send"></i> Done</a>
                 </nav>
@@ -83,25 +83,19 @@
                 <div class="row ">
                     <div class="col"></div>
                     <div class="col"></div>
-                    <div class="col position-relative"><span id="l1_3" class="num">&nbsp;</span><span class="position-absolute num_hint">&nbsp;</span></div>
                     <div class="col position-relative"><span id="l1_2" class="num">&nbsp;</span><span class="position-absolute num_hint">&nbsp;</span></div>
                     <div class="col"><span id="l1_1" class="num">&nbsp;</span></div>
                     <div class="col"></div>
                 </div>
                 <div class="row">
                     <div class="col"></div>
-                    <div class="col">&divide;</div>
-                    <div class="col"></div>
+                    <div class="col">&minus;</div>
                     <div class="col"><span id="l2_2" class="num">&nbsp;</span></div>
                     <div class="col"><span id="l2_1" class="num">&nbsp;</span></div>
                     <div class="col"></div>
                 </div>
                 <div class="row border-top border-bottom border-5">
                     <div class="col"></div>
-                    <div class="col position-relative border-start border-1">
-                        <input id="a4" type="number" class="bg-dark text-white form-control text-center border-0 p-0" pattern="[0-9]*" inputmode="numeric" maxlength="1" max="9" min="0"/>
-                        <span class="position-absolute top-0 answer text-danger"></span>
-                    </div>
                     <div class="col position-relative border-start border-1">
                         <input id="a3" type="number" class="bg-dark text-white form-control text-center border-0 p-0" pattern="[0-9]*" inputmode="numeric" maxlength="1" max="9" min="0"/>
                         <span class="position-absolute top-0 answer text-danger"></span>
@@ -170,8 +164,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 
     <script>
-        const start = 2;
-        const end = 12;
+        const start = 1;
+        const end = 9;
         const lSize = 2;
         const qSize = 20;
         var currentQ = 0;
@@ -231,8 +225,7 @@
                 for (var j = 0; j < lSize; j++) {
                     q.push(genNum(start, end))
                 }
-                q.unshift(q[0] * q[1])
-                q.pop()
+                q.sort().reverse();
                 qList.push(q)
                 aList.push({ a: 0 })
             }
@@ -362,7 +355,7 @@
             saveAnswer();
             const q = qList[currentQ];
             const a = aList[currentQ].a;
-            if (mathDiv(q) === a) {
+            if (mathSub(q) === a) {
                 $("#mark").html("&check;").addClass("text-success").removeClass("text-danger")
                 aList[currentQ].m = true;
             } else {
@@ -378,7 +371,7 @@
             qList.forEach(function(q, i) {
                 const a = aList[i].a;
 
-                if (mathDiv(q) === a) aList[i].m = true;
+                if (mathSub(q) === a) aList[i].m = true;
                 else aList[i].m = false;
             })
             const c = aList.filter(function (a) {
@@ -409,7 +402,7 @@
             const currEl = that.currentTarget;
             const el = $(currEl).next(".num_hint");
             var num = (parseInt(el.html()) || 0) + 1
-            num = num % 10;
+            num = num % lSize;
             if (num === 0) num = ""
             el.html(num)
         }
@@ -434,14 +427,6 @@
             var t = 1;
             arr.forEach(function (i) {
                 t *= parseInt(i);
-            })
-            return t
-        }
-
-        function mathDiv(arr) {
-            var t = Math.pow(arr[0], 2);
-            arr.forEach(function (i) {
-                t /= parseInt(i);
             })
             return t
         }
