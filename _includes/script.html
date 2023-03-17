@@ -1,0 +1,316 @@
+    <script>
+        const start = {{ page.math_start }};
+        const end = {{ page.math_end }};
+        const lSize = {{ page.math_col_size }};
+        const qSize = {{ page.math_q_size }};
+        const operation = "{{ page.symbol }}";
+
+        var currentQ = 0;
+        var time = getTime();
+
+        var qList = [];
+        var aList = [];
+
+        var stopTime = false;
+        
+        $(document).ready(function () {
+            resizeFont();
+            $("input").on("input", fixInput)
+            $(window).resize(resetFont);
+
+            init();
+            
+            $("#nextQ").click(nextQuestion)
+            $("#prevQ").click(prevQuestion)
+            
+            $("#btnReset").click(function () {show($("#toastReset"))})
+            $("#btnSubmit").click(function () {show($("#toastSubmit"))})
+            $("#btnSubmitAll").click(function () {show($("#toastSubmitAll"))})
+
+            $("#btnResetYes").click(function() {
+                hide($(this).parents(".toast"));
+                init();
+            })
+            $("#btnSubmitAllYes").click(function() {
+                hide($(this).parents(".toast"))
+                checkAnswerAll()
+            });
+            $("#btnSubmitYes").click(function() {
+                hide($(this).parents(".toast"))
+                checkAnswer()
+            });
+            $(".btn-close-toast").click(function () {
+                hide($(this).parents(".toast"))
+            })
+
+            
+            $(".num").click(setNumHint)
+            
+        });
+
+        function init() {
+            qList = [];
+            aList = [];
+            for (var i = 0; i < qSize; i++) {
+                const q = [];
+                for (var j = 0; j < lSize; j++) {
+                    q.push(genNum(start, end))
+                }
+                q.sort().reverse();
+                qList.push(q)
+                aList.push({ a: 0 })
+            }
+
+            time = getTime();
+            stopTime = false;
+            setTime();
+            
+            currentQ = 0
+            setQuestion(currentQ);
+            
+            $(".toast").removeClass("show");
+            $("#score").html("");
+        }
+
+        function nextQuestion() {
+            currentQ++;
+            if (currentQ >= qSize - 1) currentQ = qSize - 1;
+            setQuestion(currentQ)
+        }
+
+        function prevQuestion() {
+            currentQ--;
+            if (currentQ <= 0) currentQ = 0;
+            setQuestion(currentQ)
+        }
+
+        function setQuestion(num) {
+            $(".num_hint").html("")
+            $(".num_hint_right").html("")
+            $(".num").html("").removeClass("text-decoration-line-through");
+
+            const q = qList[num];
+
+            q.forEach(function (qNum, i) {
+                const qNumR = getReverseNum(qNum);
+                qNumR.forEach(function (qCol, j) {
+                    $("#l" + (i + 1) + "_" + (j + 1)).html(qCol);
+                })
+            })
+            
+            $(".btn-arrow").removeClass("d-none");
+            if (currentQ >= qSize - 1) $("#nextQ").addClass("d-none");
+            else if (currentQ === 0)   $("#prevQ").addClass("d-none");
+            
+            setAnswer();
+            $("#posQ").html((currentQ + 1) + " / " + qSize)
+        }
+
+        function resetFont() {
+            fs = 10;
+            resizeFont();
+        }
+
+        var fs = 40;
+        function resizeFont() {
+            fs++;
+            setFontSize(fs);
+            if ($("#math-content").parent().height() + 1 < $("#math-content").parent()[0].scrollHeight) {
+                fs--;
+                setFontSize(fs);
+                return;
+            }
+            if (fs < 1000) resizeFont();
+        }
+
+        function setFontSize(size) {
+            var hSize = toInt(size / 6)
+            if (hSize < 20) hSize = 20;
+            var nSize = toInt(size / 10)
+            if (nSize < 10) nSize = 10;
+            $("#math-content").css({ 'font-size': size + "px" });
+            $("#math-content input").css({ 'font-size': size + "px" });
+            $("#timer").css({ 'font-size': hSize + "px" });
+            $("#posQ").css({ 'font-size': hSize + "px" });
+            $("#score").css({ 'font-size': hSize + "px" });
+            $(".num_hint").css({ 'font-size': nSize + "px" });
+            $(".num_hint_right").css({ 'font-size': nSize + "px" });
+            $(".answer").css({ 'font-size': toInt(size/2) + "px" });
+        }
+
+        function fixInput(that) {
+            $("#math-content input").each(function () {
+                if ($(this).val() === "") return;
+                if (toInt($(this).val()) != $(this).val()) {
+                    $(this).val(toInt($(this).val()))
+                }
+                while ($(this).val().length > this.maxLength) {
+                    $(this).val(toInt($(this).val()/10))
+                }
+            });
+
+            const el = $(that.currentTarget)[0];
+            if (($(el).val() || "").length >= el.maxLength) {
+                $(el).parent().next("div").children("input").focus();
+            }
+            saveAnswer();
+        }
+
+        function saveAnswer() {
+            const a = [];
+            for (var i = 0; i < 10; i++) {
+                a.push($("#a" + (i+1)).val() || 0)
+            }
+            aList[currentQ].a = toInt(a.reverse().join(""));
+        }
+
+        function setAnswer() {
+            $("#math-content input").prop('readonly', false);
+            $("#mark").html("");
+
+            const a = aList[currentQ].a;
+            var a1 = getDigit(a, 1)
+            var a2 = getDigit(a, 2)
+            var a3 = getDigit(a, 3)
+            if (!a3) a3 = "";
+            $("#a3").val(a3);
+            if (!a3 && !a2) a2 = ""
+            $("#a2").val(a2);
+            if (!a1 && !a2 && !a3) a1 = ""
+            $("#a1").val(a1);
+
+            $("#btnSubmit").prop('disabled', false);
+            if (typeof aList[currentQ].m === "boolean")
+                checkAnswer()
+        }
+
+        function checkAnswer() {
+            saveAnswer();
+            const q = qList[currentQ];
+            const a = aList[currentQ].a;
+            if (mathSub(q) === a) {
+                $("#mark").html("&check;").addClass("text-success").removeClass("text-danger")
+                aList[currentQ].m = true;
+            } else {
+                $("#mark").html("&cross;").addClass("text-danger").removeClass("text-success")
+                aList[currentQ].m = false;
+            }
+            $("#math-content input").prop('readonly', true);
+            $("#btnSubmit").prop('disabled', true);
+        }
+
+        function checkAnswerAll() {
+            checkAnswer();
+            qList.forEach(function(q, i) {
+                const a = aList[i].a;
+
+                if (mathSub(q) === a) aList[i].m = true;
+                else aList[i].m = false;
+            })
+            const c = aList.filter(function (a) {
+                return a.m;
+            })
+
+            const cp = toInt((c.length * 100) / qSize);
+            $("#score").html(cp + "%")
+            $(".toast").removeClass("show")
+            stopTime = true;
+        }
+
+        function getReverseNum(num) {
+            const n = "" + (num || 0).toString()
+            return n.split("").reverse()
+        }
+
+        function getDigit(num, digit) {
+            const n = getReverseNum(num)
+            return toInt(n[digit - 1] || "")
+        }
+
+        function genNum(start, end) {
+            return toInt(Math.random() * (end - start + 1)) + start;
+        }
+
+        function setNumHint(that) {
+            const currEl = that.currentTarget;
+            const currNum = $(currEl).html()
+            const cHintEl = $(currEl).next(".num_hint");
+
+            if (cHintEl.length === 0) return;
+
+            var cHintNum = (toInt(cHintEl.html()) || 0) + 1
+            cHintNum = cHintNum % lSize;
+            if (cHintNum === 0) cHintNum = ""
+            cHintEl.html(cHintNum)
+
+            if (operation === "&minus;") {
+                setSubHint(currEl, cHintNum);
+            }
+        }
+
+        function setSubHint(el, hNum) {
+            const numEl = $(el).parent().prev().find(".num").eq(0);
+            var num = toInt(numEl.html()) - 1;
+            if (num < 0) num = 9;
+            const hintEl = $(numEl).parent().find(".num_hint_right").eq(0);
+
+            if (hNum > 0) {
+                numEl.addClass("text-decoration-line-through");
+                hintEl.html(num)
+            } else {
+                numEl.removeClass("text-decoration-line-through");
+                hintEl.html("")
+            }
+        }
+
+        function mathSum(arr) {
+            var t = 0;
+            arr.forEach(function (i) {
+                t += toInt(i);
+            })
+            return t
+        }
+
+        function mathSub(arr) {
+            var t = arr[0]*2;
+            arr.forEach(function (i) {
+                t -= toInt(i);
+            })
+            return t
+        }
+
+        function mathMul(arr) {
+            var t = 1;
+            arr.forEach(function (i) {
+                t *= toInt(i);
+            })
+            return t
+        }
+
+        function setTime() {
+            if (stopTime) return;
+            var s = toInt((getTime() - time) / 1000);
+            var m = toInt(s/60);
+            s = s % 60;
+            var timer = m + ":" + ("00"+s).substr(-2);
+            $("#timer").html(timer)
+
+            setTimeout(setTime, 500);
+        }
+
+        function show(j) {
+            j.show().addClass("show").removeClass("hide")
+        }
+
+        function hide(j) {
+            j.hide().removeClass("show").addClass("hide")
+        }
+
+        function getTime() {
+            return new Date().getTime();
+        }
+
+        function toInt(i) {
+            return parseInt(i) || 0;
+        }
+    </script>

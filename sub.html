@@ -1,110 +1,18 @@
-<!doctype html>
-<html lang="en" class="h-100">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>MathLagi v0.1 - Subtraction</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-
-    <meta name="theme-color" content="#7952b3">
-
-
-    <style>
-        body {
-            text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
-            box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
-        }
-
-        .cover-container {
-            max-width: 42em;
-        }
-
-        .nav-link {
-            font-weight: 700;
-            color: rgba(255, 255, 255, .5);
-            background-color: transparent;
-        }
-    </style>
-</head>
-
-<body class="d-flex h-100 text-center text-white bg-dark">
-
-    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-        <header class="mb-auto">
-            <div class="border-bottom border-1">
-                <h3 class="float-md-start mb-0">MathLagi : <span class="font-monospace">&minus;</span></h3>
-
-                <nav class="nav justify-content-end">
-                    <a id="btnHome" class="nav-link ps-0" href="index.html"><i class="bi-house"></i> Home</a>
-                </nav>
-            </div>
-        </header>
-
-        <main class="overflow-auto px-3">
-            <div id="math-content" class="font-monospace my-5">
-
-                <div class="row mt-5">
-                    <div class="col mb-3"><a href="sub_1.html" class="btn btn-outline-light px-5" role="button">1</a></div>
-                    <div class="col mb-3"><a href="sub_2.html" class="btn btn-outline-light px-5" role="button">2</a></div>
-                </div>
-                
-                <div class="row mb-5">
-                    <div class="col mb-3"><a href="#" class="btn btn-outline-secondary px-5" role="button">3</a></div>
-                    <div class="col mb-3"><a href="#" class="btn btn-outline-secondary px-5" role="button">4</a></div>
-                </div>
-
-            </div>
-        </main>
-
-        <footer class="mt-auto text-white-50 row d-grid border-top border-1 pt-5"></footer>
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
-        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
-        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
-        crossorigin="anonymous"></script>
-
-
-
-    <script>
-        const fsMin = 10;
-        var fs = fsMin; // font size
-
-        $(document).ready(function () {
-            resizeFont();
-            $(window).resize(resetFont);
-        });
-
-        function resetFont() {
-            fs = fsMin;
-            resizeFont();
-        }
-
-        function resizeFont() {
-            fs++;
-            setFontSize(fs);
-            if ($("#math-content").parent().height() + 1 < $("#math-content").parent()[0].scrollHeight) {
-                fs--;
-                setFontSize(fs);
-                return;
-            }
-            if (fs < 1000) resizeFont();
-        }
-
-        function setFontSize(size) {
-            $("#math-content").css({ 'font-size': size + "px" });
-            $("#math-content a").css({ 'font-size': size + "px" });
-        }
-    </script>
-</body>
-
-</html>
+---
+layout: levels
+title: Subtraction
+symbol: "&minus;"
+levels:
+  - num: 1
+    url: sub_1.html
+    color: light
+  - num: 2
+    url: sub_2.html
+    color: light
+  - num: 3
+    url: "#"
+    color: secondary
+  - num: 4
+    url: "#"
+    color: secondary
+---
