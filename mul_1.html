@@ -54,8 +54,8 @@ level: 1
 
         <footer class="mt-auto text-white-50">
             <div class="row py-3">
-                <div class="col d-grid"><button id="prevQ" type="button" class="btn btn-success btn-lg btn-arrow">&lt;&lt;</button></div>
-                <div class="col d-grid"><button id="nextQ" type="button" class="btn btn-success btn-lg btn-arrow">&gt;&gt;</button></div>
+                <div class="col d-grid"><button id="btnLeft" type="button" class="btn btn-success btn-lg btn-arrow">&lt;&lt;</button></div>
+                <div class="col d-grid"><button id="btnRight" type="button" class="btn btn-success btn-lg btn-arrow">&gt;&gt;</button></div>
             </div>
             <div class="d-grid">
                 <button id="btnSubmit" type="button" class="btn btn-primary btn-lg">SUBMIT</button>
@@ -120,8 +120,8 @@ level: 1
 
             init();
             
-            $("#nextQ").click(nextQuestion)
-            $("#prevQ").click(prevQuestion)
+            $("#btnRight").click(nextQuestion)
+            $("#btnLeft").click(prevQuestion)
             
             
             $("#btnReset").click(function () {
@@ -203,8 +203,8 @@ level: 1
             })
             
             $(".btn-arrow").removeClass("d-none");
-            if (currentQ >= qSize - 1) $("#nextQ").addClass("d-none");
-            else if (currentQ === 0)   $("#prevQ").addClass("d-none");
+            if (currentQ >= qSize - 1) $("#btnRight").addClass("d-none");
+            else if (currentQ === 0)   $("#btnLeft").addClass("d-none");
             
             setAnswer();
             $("#posQ").html((currentQ + 1) + " / " + qSize)

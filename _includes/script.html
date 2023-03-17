@@ -1,7 +1,7 @@
     <script>
         const start = {{ page.math_start }};
         const end = {{ page.math_end }};
-        const lSize = {{ page.math_col_size }};
+        const lSize = {{ page.math_row_size }};
         const qSize = {{ page.math_q_size }};
         const operation = "{{ page.symbol }}";
 
@@ -20,8 +20,8 @@
 
             init();
             
-            $("#nextQ").click(nextQuestion)
-            $("#prevQ").click(prevQuestion)
+            $("#btnRight").click(nextQuestion)
+            $("#btnLeft").click(prevQuestion)
             
             $("#btnReset").click(function () {show($("#toastReset"))})
             $("#btnSubmit").click(function () {show($("#toastSubmit"))})
@@ -99,8 +99,8 @@
             })
             
             $(".btn-arrow").removeClass("d-none");
-            if (currentQ >= qSize - 1) $("#nextQ").addClass("d-none");
-            else if (currentQ === 0)   $("#prevQ").addClass("d-none");
+            if (currentQ >= qSize - 1) $("#btnRight").addClass("d-none");
+            else if (currentQ === 0)   $("#btnLeft").addClass("d-none");
             
             setAnswer();
             $("#posQ").html((currentQ + 1) + " / " + qSize)
@@ -126,8 +126,8 @@
         function setFontSize(size) {
             var hSize = toInt(size / 6)
             if (hSize < 20) hSize = 20;
-            var nSize = toInt(size / 10)
-            if (nSize < 10) nSize = 10;
+            var nSize = toInt(size / 5)
+            if (nSize < 10) nSize = 20;
             $("#math-content").css({ 'font-size': size + "px" });
             $("#math-content input").css({ 'font-size': size + "px" });
             $("#timer").css({ 'font-size': hSize + "px" });
@@ -184,39 +184,6 @@
                 checkAnswer()
         }
 
-        function checkAnswer() {
-            saveAnswer();
-            const q = qList[currentQ];
-            const a = aList[currentQ].a;
-            if (mathSub(q) === a) {
-                $("#mark").html("&check;").addClass("text-success").removeClass("text-danger")
-                aList[currentQ].m = true;
-            } else {
-                $("#mark").html("&cross;").addClass("text-danger").removeClass("text-success")
-                aList[currentQ].m = false;
-            }
-            $("#math-content input").prop('readonly', true);
-            $("#btnSubmit").prop('disabled', true);
-        }
-
-        function checkAnswerAll() {
-            checkAnswer();
-            qList.forEach(function(q, i) {
-                const a = aList[i].a;
-
-                if (mathSub(q) === a) aList[i].m = true;
-                else aList[i].m = false;
-            })
-            const c = aList.filter(function (a) {
-                return a.m;
-            })
-
-            const cp = toInt((c.length * 100) / qSize);
-            $("#score").html(cp + "%")
-            $(".toast").removeClass("show")
-            stopTime = true;
-        }
-
         function getReverseNum(num) {
             const n = "" + (num || 0).toString()
             return n.split("").reverse()
@@ -232,34 +199,48 @@
         }
 
         function setNumHint(that) {
-            const currEl = that.currentTarget;
-            const currNum = $(currEl).html()
-            const cHintEl = $(currEl).next(".num_hint");
+            const $numEl = $(that.currentTarget);
+            const num = toInt($numEl.html())
+            const $hintEl = $numEl.next(".num_hint");
+            if ($hintEl.length === 0) return;
 
-            if (cHintEl.length === 0) return;
-
-            var cHintNum = (toInt(cHintEl.html()) || 0) + 1
-            cHintNum = cHintNum % lSize;
-            if (cHintNum === 0) cHintNum = ""
-            cHintEl.html(cHintNum)
 
             if (operation === "&minus;") {
-                setSubHint(currEl, cHintNum);
+                const $prevEl = $numEl.parent().prev().find(".num").eq(0);
+                if ($prevEl.length === 0) return;
+
+                var hintNum = toInt($hintEl.html())
+                if (hintNum > 0) {
+                    $numEl.removeClass("text-decoration-line-through");
+                    $hintEl.html("")
+                    setSubHint($numEl, 0)
+                } else {
+                    $numEl.addClass("text-decoration-line-through");
+                    $hintEl.html(num+10)
+                    setSubHint($numEl, num+10)
+                }
+            } else if (operation === "&plus;") {
+                var hintNum = toInt($hintEl.html())
+                hintNum++;
+                hintNum = hintNum % lSize;
+                if (hintNum === 0) hintNum = ""
+                $hintEl.html(hintNum)
             }
         }
 
         function setSubHint(el, hNum) {
-            const numEl = $(el).parent().prev().find(".num").eq(0);
-            var num = toInt(numEl.html()) - 1;
+            const $numEl = el.parent().prev().find(".num").eq(0);
+            var num = toInt($numEl.html());
+            num--;
             if (num < 0) num = 9;
-            const hintEl = $(numEl).parent().find(".num_hint_right").eq(0);
+            const $hintEl = $numEl.parent().find(".num_hint").eq(0);
 
-            if (hNum > 0) {
-                numEl.addClass("text-decoration-line-through");
-                hintEl.html(num)
+            if (!hNum) {
+                $numEl.removeClass("text-decoration-line-through");
+                $hintEl.html("")
             } else {
-                numEl.removeClass("text-decoration-line-through");
-                hintEl.html("")
+                $numEl.addClass("text-decoration-line-through");
+                $hintEl.html(num)
             }
         }
 

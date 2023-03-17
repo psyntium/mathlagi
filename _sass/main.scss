@@ -15,7 +15,6 @@ body {
 
 .num_hint {
     top: 10%;
-    left: 10%;
 }
 
 .num_hint_right {
@@ -36,4 +35,8 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
     -moz-appearance: textfield;
+}
+
+.border-dashed {
+    border-style: dashed!important;
 }
