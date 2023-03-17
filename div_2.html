@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>MathLagi v0.1 - Subtraction - Level 1</title>
+    <title>MathLagi v0.1 - Division - Level 2</title>
 
     <!-- Bootstrap core CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -49,6 +49,10 @@
         input[type=number] {
             -moz-appearance: textfield;
         }
+
+        .border-dashed {
+            border-style: dashed!important;;
+        }
         
     </style>
 </head>
@@ -58,11 +62,11 @@
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
         <header class="mb-auto">
             <div class="border-bottom border-1">
-                <h3 class="float-md-start mb-0">MathLagi : <span class="font-monospace">&minus;</span> : <span class="font-monospace">1</span></h3>
+                <h3 class="float-md-start mb-0">MathLagi : <span class="font-monospace">&divide;</span> : <span class="font-monospace">2</span></h3>
                 
                 <nav class="nav justify-content-end">
                     <a id="btnHome" class="nav-link ps-0" href="index.html"><i class="bi-house"></i> Home</a>
-                    <a id="btnLevel" class="nav-link ps-0" href="sub.html"><i class="bi-speedometer"></i> Level</a>
+                    <a id="btnLevel" class="nav-link ps-0" href="div.html"><i class="bi-speedometer"></i> Level</a>
                     <a id="btnReset" class="nav-link ps-0" href="#"><i class="bi-arrow-clockwise"></i> Reset</a>
                     <a id="btnSubmitAll" class="nav-link ps-0" href="#"><i class="bi-send"></i> Done</a>
                 </nav>
@@ -80,35 +84,66 @@
         <main class="overflow-auto px-3">
             <div id="math-content" class="font-monospace my-5">
 
-                <div class="row ">
+                <div class="row">
+                    <div class="col">&nbsp;</div>
+                    <div class="col">&nbsp;</div>
+                    <div class="col">&nbsp;</div>
+                    <div class="col position-relative border border-1 border-dashed border-secondary">
+                        <input id="a1_2" type="number" class="bg-dark text-white form-control text-center border-0 p-0" pattern="[0-9]*" inputmode="numeric" maxlength="1" max="9" min="0"/>
+                        <span class="position-absolute top-0 answer text-danger"></span>
+                    </div>
+                    <div class="col position-relative border border-1 border-dashed border-secondary">
+                        <input id="a1_1" type="number" class="bg-dark text-white form-control text-center border-0 p-0" pattern="[0-9]*" inputmode="numeric" maxlength="1" max="9" min="0"/>
+                        <span class="position-absolute top-0 answer text-danger"></span>
+                    </div>
+                    <div id="mark1" class="col"></div>
+                </div>
+                <div class="row">
+                    <div class="col-2"><span id="l2_2" class="num">&nbsp;</span></div>
+                    <div class="col-2"><span id="l2_1" class="num">&nbsp;</span></div>
+                    <div class="col-2 border-top border-start border-5"><span id="l1_3" class="num">&nbsp;</span></div>
+                    <div class="col-2 border-top border-5"><span id="l1_2" class="num">&nbsp;</span></div>
+                    <div class="col-2 border-top border-5"><span id="l1_1" class="num">&nbsp;</span></div>
+                    <div class="col-1">&nbsp;</div>
+                </div>
+                <div class="row">
                     <div class="col"></div>
-                    <div class="col"></div>
-                    <div class="col position-relative"><span id="l1_2" class="num">&nbsp;</span><span class="position-absolute num_hint">&nbsp;</span></div>
-                    <div class="col"><span id="l1_1" class="num">&nbsp;</span></div>
+                    <div class="col text-secondary">&minus;</div>
+                    <div class="col position-relative border border-1 border-dashed border-secondary">
+                        <input id="a2_3" type="number" class="bg-dark text-white form-control text-center border-0 p-0" pattern="[0-9]*" inputmode="numeric" maxlength="1" max="9" min="0"/>
+                        <span class="position-absolute top-0 answer text-danger"></span>
+                    </div>
+                    <div class="col position-relative border border-1 border-dashed border-secondary">
+                        <input id="a2_2" type="number" class="bg-dark text-white form-control text-center border-0 p-0" pattern="[0-9]*" inputmode="numeric" maxlength="1" max="9" min="0"/>
+                        <span class="position-absolute top-0 answer text-danger"></span>
+                    </div>
+                    <div class="col position-relative border border-1 border-dashed border-secondary">
+                        <input id="a2_1" type="number" class="bg-dark text-white form-control text-center border-0 p-0" pattern="[0-9]*" inputmode="numeric" maxlength="1" max="9" min="0"/>
+                        <span class="position-absolute top-0 answer text-danger"></span>
+                    </div>
                     <div class="col"></div>
                 </div>
                 <div class="row">
                     <div class="col"></div>
-                    <div class="col">&minus;</div>
-                    <div class="col"><span id="l2_2" class="num">&nbsp;</span></div>
-                    <div class="col"><span id="l2_1" class="num">&nbsp;</span></div>
+                    <div class="col"></div>
+                    <div class="col border border-bottom border-1 border-light"></div>
+                    <div class="col border border-bottom border-1 border-light"></div>
+                    <div class="col border border-bottom border-1 border-light"></div>
                     <div class="col"></div>
                 </div>
-                <div class="row border-top border-bottom border-5">
+                <div class="row">
                     <div class="col"></div>
-                    <div class="col position-relative border-start border-1">
-                        <input id="a3" type="number" class="bg-dark text-white form-control text-center border-0 p-0" pattern="[0-9]*" inputmode="numeric" maxlength="1" max="9" min="0"/>
+                    <div class="col"></div>
+                    <div class="col"></div>
+                    <div class="col position-relative border border-1 border-dashed border-secondary">
+                        <input id="a3_2" type="number" class="bg-dark text-white form-control text-center border-0 p-0" pattern="[0-9]*" inputmode="numeric" maxlength="1" max="9" min="0"/>
                         <span class="position-absolute top-0 answer text-danger"></span>
                     </div>
-                    <div class="col position-relative border-start border-1">
-                        <input id="a2" type="number" class="bg-dark text-white form-control text-center border-0 p-0" pattern="[0-9]*" inputmode="numeric" maxlength="1" max="9" min="0"/>
+                    <div class="col position-relative border border-1 border-dashed border-secondary">
+                        <input id="a3_1" type="number" class="bg-dark text-white form-control text-center border-0 p-0" pattern="[0-9]*" inputmode="numeric" maxlength="1" max="9" min="0"/>
                         <span class="position-absolute top-0 answer text-danger"></span>
                     </div>
-                    <div class="col position-relative border-start border-1 border-end">
-                        <input id="a1" type="number" class="bg-dark text-white form-control text-center border-0 p-0" pattern="[0-9]*" inputmode="numeric" maxlength="1" max="9" min="0"/>
-                        <span class="position-absolute top-0 answer text-danger"></span>
-                    </div>
-                    <div id="mark" class="col"></div>
+                    <div id="mark3" class="col"></div>
                 </div>
                 <div class="row border-top border-3 mt-1"></div>
 
@@ -164,8 +199,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 
     <script>
-        const start = 1;
-        const end = 9;
+        const start = 2;
+        const end = 12;
         const lSize = 2;
         const qSize = 20;
         var currentQ = 0;
@@ -220,14 +255,15 @@
         function init() {
             qList = [];
             aList = [];
+            
             for (var i = 0; i < qSize; i++) {
-                const q = [];
-                for (var j = 0; j < lSize; j++) {
-                    q.push(genNum(start, end))
-                }
-                q.sort().reverse();
+                const q = [genNum(start, end), genNum(start, end)];
+                q.unshift(q[0] * q[1])
+                q.pop()
+                q.push(genNum(0, q[1]))
+                q[0] += q[2] 
                 qList.push(q)
-                aList.push({ a: 0 })
+                aList.push({ a1: 0, a2: 0, a3: 0 })
             }
 
             time = getTime();
@@ -283,6 +319,11 @@
         function resizeFont() {
             fs++;
             setFontSize(fs);
+            if ($("#l1_1").width() > $("#l1_1").parent().width()) {
+                fs--;
+                setFontSize(fs);
+                return;
+            }
             if ($("#math-content").parent().height() + 1 < $("#math-content").parent()[0].scrollHeight) {
                 fs--;
                 setFontSize(fs);
@@ -324,27 +365,59 @@
         }
 
         function saveAnswer() {
-            const a = [];
-            for (var i = 0; i < 10; i++) {
-                a.push($("#a" + (i+1)).val() || 0)
+            const a1 = [];
+            const a2 = [];
+            const a3 = [];
+            for (var i = 1; i < 10; i++) {
+                a1.push($("#a1_" + i).val() || 0)
+                a2.push($("#a2_" + i).val() || 0)
+                a3.push($("#a3_" + i).val() || 0)
             }
-            aList[currentQ].a = parseInt(a.reverse().join(""));
+            aList[currentQ].a1 = parseInt(a1.reverse().join(""));
+            aList[currentQ].a2 = parseInt(a2.reverse().join(""));
+            aList[currentQ].a3 = parseInt(a3.reverse().join(""));
         }
 
         function setAnswer() {
             $("#math-content input").prop('readonly', false);
-            $("#mark").html("");
+            $("#mark1").html("");
+            $("#mark3").html("");
 
-            const a = aList[currentQ].a;
-            var a1 = getDigit(a, 1)
-            var a2 = getDigit(a, 2)
-            var a3 = getDigit(a, 3)
-            if (!a3) a3 = "";
-            $("#a3").val(a3);
-            if (!a3 && !a2) a2 = ""
-            $("#a2").val(a2);
-            if (!a1 && !a2 && !a3) a1 = ""
-            $("#a1").val(a1);
+            const a1 = aList[currentQ].a1;
+            var a1_1 = getDigit(a1, 1)
+            var a1_2 = getDigit(a1, 2)
+            var a1_3 = getDigit(a1, 3)
+
+            if (!a1_3) a1_3 = "";
+            $("#a1_3").val(a1_3);
+            if (!a1_3 && !a1_2) a1_2 = ""
+            $("#a1_2").val(a1_2);
+            if (!a1_1 && !a1_2 && !a1_3) a1_1 = ""
+            $("#a1_1").val(a1_1);
+
+            const a2 = aList[currentQ].a2;
+            var a2_1 = getDigit(a2, 1)
+            var a2_2 = getDigit(a2, 2)
+            var a2_3 = getDigit(a2, 3)
+
+            if (!a2_3) a2_3 = "";
+            $("#a2_3").val(a2_3);
+            if (!a2_3 && !a2_2) a2_2 = ""
+            $("#a2_2").val(a2_2);
+            if (!a2_1 && !a2_2 && !a2_3) a2_1 = ""
+            $("#a2_1").val(a2_1);
+
+            const a3 = aList[currentQ].a3;
+            var a3_1 = getDigit(a3, 1)
+            var a3_2 = getDigit(a3, 2)
+            var a3_3 = getDigit(a3, 3)
+
+            if (!a3_3) a3_3 = "";
+            $("#a3_3").val(a3_3);
+            if (!a3_3 && !a3_2) a3_2 = ""
+            $("#a3_2").val(a3_2);
+            if (!a3_1 && !a3_2 && !a3_3) a3_1 = ""
+            $("#a3_1").val(a3_1);
 
             $("#btnSubmit").prop('disabled', false);
             if (typeof aList[currentQ].m === "boolean")
@@ -354,14 +427,29 @@
         function checkAnswer() {
             saveAnswer();
             const q = qList[currentQ];
-            const a = aList[currentQ].a;
-            if (mathSub(q) === a) {
-                $("#mark").html("&check;").addClass("text-success").removeClass("text-danger")
-                aList[currentQ].m = true;
+            const a1 = aList[currentQ].a1;
+            const a3 = aList[currentQ].a3;
+            const a = mathDiv2(q);
+
+            if (a.a1 === a1) {
+                $("#mark1").html("&check;").addClass("text-success").removeClass("text-danger")
+                aList[currentQ].m1 = true;
             } else {
-                $("#mark").html("&cross;").addClass("text-danger").removeClass("text-success")
-                aList[currentQ].m = false;
+                $("#mark1").html("&cross;").addClass("text-danger").removeClass("text-success")
+                aList[currentQ].m1 = false;
             }
+
+            if (a.a3 === a3) {
+                $("#mark3").html("&check;").addClass("text-success").removeClass("text-danger")
+                aList[currentQ].m3 = true;
+            } else {
+                $("#mark3").html("&cross;").addClass("text-danger").removeClass("text-success")
+                aList[currentQ].m3 = false;
+            }
+
+            if (aList[currentQ].m1 && aList[currentQ].m2) aList[currentQ].m = true;
+            else aList[currentQ].m = false;
+
             $("#math-content input").prop('readonly', true);
             $("#btnSubmit").prop('disabled', true);
         }
@@ -369,13 +457,22 @@
         function checkAnswerAll() {
             checkAnswer();
             qList.forEach(function(q, i) {
-                const a = aList[i].a;
+                const a1 = aList[i].a1;
+                const a3 = aList[i].a3;
 
-                if (mathSub(q) === a) aList[i].m = true;
-                else aList[i].m = false;
+                const a = mathDiv2(q);
+
+                if (a.a1 === a1) aList[i].m1 = true;
+                else aList[i].m1 = false;
+
+                if (a.a3 === a3) aList[i].m3 = true;
+                else aList[i].m3 = false;
+
+                if (aList[i].m1 && aList[i].m3) aList[i].m = true;
+                else  aList[i].m = false;
             })
             const c = aList.filter(function (a) {
-                return a.m;
+                return a.m1 && a.m3;
             })
 
             const cp = parseInt((c.length * 100) / qSize);
@@ -402,7 +499,7 @@
             const currEl = that.currentTarget;
             const el = $(currEl).next(".num_hint");
             var num = (parseInt(el.html()) || 0) + 1
-            num = num % lSize;
+            num = num % 10;
             if (num === 0) num = ""
             el.html(num)
         }
@@ -429,6 +526,20 @@
                 t *= parseInt(i);
             })
             return t
+        }
+
+        function mathDiv(arr) {
+            var t = Math.pow(arr[0], 2);
+            arr.forEach(function (i) {
+                t /= parseInt(i);
+            })
+            return t
+        }
+
+        function mathDiv2(arr) {
+            const a1 = parseInt(arr[0]/arr[1])
+            const a3 = arr[0] % arr[1];
+            return { a1, a3 }
         }
 
         function setTime() {

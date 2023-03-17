@@ -346,7 +346,7 @@
             if (!a1 && !a2 && !a3) a1 = ""
             $("#a1").val(a1);
 
-            $("#submit").prop('disabled', false);
+            $("#btnSubmit").prop('disabled', false);
             if (typeof aList[currentQ].m === "boolean")
                 checkAnswer()
         }
@@ -363,7 +363,7 @@
                 aList[currentQ].m = false;
             }
             $("#math-content input").prop('readonly', true);
-            $("#submit").prop('disabled', true);
+            $("#btnSubmit").prop('disabled', true);
         }
 
         function checkAnswerAll() {
