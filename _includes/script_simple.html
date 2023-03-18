@@ -1,20 +1,24 @@
     <script>
-        function checkAnswer() {
-            saveAnswer();
+        function checkAnswer(pos, noStyleChange) {
+            if (isNaN(pos))
+                pos = currentQ;
 
-            $(".mark0").html("").removeClass("text-danger").removeClass("text-success");
+            saveAnswer(pos);
 
-            const q = qList[currentQ];
-            const a = aList[currentQ].a;
-            aList[currentQ].m = false;
+            if (!noStyleChange)
+                $(".mark0").html("").removeClass("text-danger").removeClass("text-success");
+
+            const q = qList[pos];
+            const a = aList[pos].a;
+            aList[pos].m = false;
 
             var corrent = false;
-            switch(operation) {
+            switch (operation) {
                 case "&minus;":
                     if (mathSub(q) === a) corrent = true;
                     break;
                 case "&plus;":
-                    if (mathAdd(q) === a) corrent = true;
+                    if (mathSum(q) === a) corrent = true;
                     break;
                 case "&Cross;":
                     if (mathMul(q) === a) corrent = true;
@@ -23,41 +27,26 @@
                     if (mathDiv(q) === a) corrent = true;
                     break;
             }
-            
+
             if (corrent) {
-                $("#mark").html("&check;").addClass("text-success")
-                aList[currentQ].m = true;
+                if (!noStyleChange)
+                    $("#mark").html("&check;").addClass("text-success")
+                aList[pos].m = true;
             } else {
-                $("#mark").html("&cross;").addClass("text-danger")
+                if (!noStyleChange)
+                    $("#mark").html("&cross;").addClass("text-danger")
             }
 
-            $("#math-content input").prop('readonly', true);
-            $("#btnSubmit").prop('disabled', true);
+            if (!noStyleChange) {
+                $("#math-content input").prop('readonly', true);
+                $("#btnSubmit").prop('disabled', true);
+            }
         }
 
         function checkAnswerAll() {
             checkAnswer();
             qList.forEach(function(q, i) {
-                const a = aList[i].a;
-                aList[i].m = false;
-
-                var corrent = false;
-                switch(operation) {
-                    case "&minus;":
-                        if (mathSub(q) === a) corrent = true;
-                        break;
-                    case "&plus;":
-                        if (mathAdd(q) === a) corrent = true;
-                        break;
-                    case "&Cross;":
-                        if (mathMul(q) === a) corrent = true;
-                        break;
-                    case "&divide;":
-                        if (mathDiv(q) === a) corrent = true;
-                        break;
-                }
-                
-                if (corrent) aList[i].m = true;
+                checkAnswer(i, true)
             })
 
             const c = aList.filter(function (a) {
