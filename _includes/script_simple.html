@@ -1,0 +1,72 @@
+    <script>
+        function checkAnswer() {
+            saveAnswer();
+
+            $(".mark0").html("").removeClass("text-danger").removeClass("text-success");
+
+            const q = qList[currentQ];
+            const a = aList[currentQ].a;
+
+            var corrent = false;
+            switch(operation) {
+                case "&minus;":
+                    if (mathSub(q) === a) corrent = true;
+                    break;
+                case "&plus;":
+                    if (mathAdd(q) === a) corrent = true;
+                    break;
+                case "&Cross;":
+                    if (mathMul(q) === a) corrent = true;
+                    break;
+                case "&divide;":
+                    if (mathDiv(q) === a) corrent = true;
+                    break;
+            }
+            
+            if (corrent) {
+                $("#mark").html("&check;").addClass("text-success")
+                aList[currentQ].m = true;
+            } else {
+                $("#mark").html("&cross;").addClass("text-danger")
+                aList[currentQ].m = false;
+            }
+
+            $("#math-content input").prop('readonly', true);
+            $("#btnSubmit").prop('disabled', true);
+        }
+
+        function checkAnswerAll() {
+            checkAnswer();
+            qList.forEach(function(q, i) {
+                const a = aList[i].a;
+
+                var corrent = false;
+                switch(operation) {
+                    case "&minus;":
+                        if (mathSub(q) === a) corrent = true;
+                        break;
+                    case "&plus;":
+                        if (mathAdd(q) === a) corrent = true;
+                        break;
+                    case "&Cross;":
+                        if (mathMul(q) === a) corrent = true;
+                        break;
+                    case "&divide;":
+                        if (mathDiv(q) === a) corrent = true;
+                        break;
+                }
+                
+                if (corrent) aList[currentQ].m = true;
+                else aList[currentQ].m = false;
+            })
+
+            const c = aList.filter(function (a) {
+                return a.m;
+            })
+
+            const cp = parseInt((c.length * 100) / qSize);
+            $("#score").html(cp + "%")
+            $(".toast").removeClass("show")
+            stopTime = true;
+        }
+    </script>

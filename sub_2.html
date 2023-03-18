@@ -50,7 +50,7 @@ math_q_size: 20
                         <input id="a1" type="number" class="bg-dark text-white form-control text-center border-0 p-0" pattern="[0-9]*" inputmode="numeric" maxlength="1" max="9" min="0"/>
                         <span class="position-absolute top-0 answer text-danger"></span>
                     </div>
-                    <div id="mark" class="col"></div>
+                    <div id="mark" class="col mark0"></div>
                 </div>
                 <div class="row border-top border-3 mt-1"></div>
 
@@ -67,40 +67,7 @@ math_q_size: 20
 
 {% include script.html %}
 
-    <script>
-        function checkAnswer() {
-            saveAnswer();
-            const q = qList[currentQ];
-            const a = aList[currentQ].a;
-            if (mathSub(q) === a) {
-                $("#mark").html("&check;").addClass("text-success").removeClass("text-danger")
-                aList[currentQ].m = true;
-            } else {
-                $("#mark").html("&cross;").addClass("text-danger").removeClass("text-success")
-                aList[currentQ].m = false;
-            }
-            $("#math-content input").prop('readonly', true);
-            $("#btnSubmit").prop('disabled', true);
-        }
-
-        function checkAnswerAll() {
-            checkAnswer();
-            qList.forEach(function(q, i) {
-                const a = aList[i].a;
-
-                if (mathSub(q) === a) aList[i].m = true;
-                else aList[i].m = false;
-            })
-            const c = aList.filter(function (a) {
-                return a.m;
-            })
-
-            const cp = toInt((c.length * 100) / qSize);
-            $("#score").html(cp + "%")
-            $(".toast").removeClass("show")
-            stopTime = true;
-        }
-    </script>
+{% include script_simple.html %}
 
 </body>
 
