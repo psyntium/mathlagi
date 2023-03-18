@@ -48,25 +48,18 @@
         });
 
         function init() {
-            qList = [];
-            aList = [];
-            while (qList.length < qSize) {
-                const q = [];
-                while (q.length < lSize) {
-                    q.push(genNum(start, end))
-                }
-                if (operation === "&minus;")
-                    q.sort().reverse();
-                else if (operation === "&divide;") {
+            qList = genQuestions(qSize, lSize, start, end, operation === "&minus;");
+            aList = genAnswers(qSize);
+
+            if (operation === "&divide;") {
+                qList.forEach(function (q) {
                     q.unshift(q[0] * q[1])
                     q.pop()
                     if (level > 1) {
                         q.push(genNum(0, q[1]))
                         q[0] += q[2]
                     }
-                }
-                qList.push(q)
-                aList.push({ a: 0 })
+                })
             }
 
             time = getTime();
@@ -90,6 +83,35 @@
             currentQ--;
             if (currentQ <= 0) currentQ = 0;
             setQuestion(currentQ)
+        }
+
+        function genQuestions(size, rowSize, start, end, sort) {
+            sort = sort || false;
+            const questions = [];
+            while (questions.length < size) {
+                const rows = [];
+                while (rows.length < rowSize) {
+                    rows.push(genNum(start, end))
+                }
+                if (sort) {
+                    rows.sort(function (a, b) { return b - a; });
+                }
+                const arr = questions.map(function (rArr) {
+                    return rArr.join(":");
+                })
+                if (!arr.includes(rows.join(":"))) {
+                    questions.push(rows);
+                }
+            }
+            return questions;
+        }
+
+        function genAnswers(size) {
+            const answers = [];
+            while (answers.length < size) {
+                answers.push({ a: 0 })
+            }
+            return answers;
         }
 
         function setQuestion(num) {
