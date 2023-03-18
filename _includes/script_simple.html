@@ -6,6 +6,7 @@
 
             const q = qList[currentQ];
             const a = aList[currentQ].a;
+            aList[currentQ].m = false;
 
             var corrent = false;
             switch(operation) {
@@ -28,7 +29,6 @@
                 aList[currentQ].m = true;
             } else {
                 $("#mark").html("&cross;").addClass("text-danger")
-                aList[currentQ].m = false;
             }
 
             $("#math-content input").prop('readonly', true);
@@ -39,6 +39,7 @@
             checkAnswer();
             qList.forEach(function(q, i) {
                 const a = aList[i].a;
+                aList[i].m = false;
 
                 var corrent = false;
                 switch(operation) {
@@ -56,8 +57,7 @@
                         break;
                 }
                 
-                if (corrent) aList[currentQ].m = true;
-                else aList[currentQ].m = false;
+                if (corrent) aList[i].m = true;
             })
 
             const c = aList.filter(function (a) {
