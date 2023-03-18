@@ -103,18 +103,23 @@ math_q_size: 20
             saveAnswer();
 
             $(".mark0").html("").removeClass("text-success").removeClass("text-danger");
+            $("#math-content input").prop('readonly', true);
+            $("#btnSubmit").prop('disabled', true);
 
             const q = qList[currentQ];
             const a1 = aList[currentQ].a1;
             const a2 = aList[currentQ].a2;
             const a = mathDiv2(q);
 
+            aList[currentQ].m1 = false;
+            aList[currentQ].m2 = false;
+            aList[currentQ].m = false;
+
             if (a.a1 === a1) {
                 $("#mark1").html("&check;").addClass("text-success")
                 aList[currentQ].m1 = true;
             } else {
                 $("#mark1").html("&cross;").addClass("text-danger")
-                aList[currentQ].m1 = false;
             }
 
             if (a.a2 === a2) {
@@ -122,35 +127,29 @@ math_q_size: 20
                 aList[currentQ].m2 = true;
             } else {
                 $("#mark2").html("&cross;").addClass("text-danger")
-                aList[currentQ].m2 = false;
             }
 
             if (aList[currentQ].m1 && aList[currentQ].m2) aList[currentQ].m = true;
-            else aList[currentQ].m = false;
-
-            $("#math-content input").prop('readonly', true);
-            $("#btnSubmit").prop('disabled', true);
         }
 
         function checkAnswerAll() {
             checkAnswer();
+
             qList.forEach(function(q, i) {
                 const a1 = aList[i].a1;
                 const a2 = aList[i].a2;
-
                 const a = mathDiv2(q);
 
+                aList[i].m1 = false;
+                aList[i].m2 = false;
+                aList[i].m = false;
+
                 if (a.a1 === a1) aList[i].m1 = true;
-                else aList[i].m1 = false;
-
                 if (a.a2 === a2) aList[i].m2 = true;
-                else aList[i].m2 = false;
-
                 if (aList[i].m1 && aList[i].m2) aList[i].m = true;
-                else  aList[i].m = false;
             })
             const c = aList.filter(function (a) {
-                return a.m1 && a.m2;
+                return a.m;
             })
 
             const cp = parseInt((c.length * 100) / qSize);
