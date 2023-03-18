@@ -2,10 +2,10 @@
 title: Addition
 subtitle: add
 symbol: "&plus;"
-level: 1
+level: 3
 
-math_start: 1
-math_end: 9
+math_start: 100
+math_end: 999
 math_row_size: 2
 math_q_size: 20
 ---
@@ -24,15 +24,27 @@ math_q_size: 20
 
                 <div class="row ">
                     <div class="col">&nbsp;</div>
+                    <div class="col position-relative"><span id="l1_3" class="num">&nbsp;</span><span class="position-absolute start-50 translate-middle num_hint">&nbsp;</span></div>
+                    <div class="col position-relative"><span id="l1_2" class="num">&nbsp;</span><span class="position-absolute start-50 translate-middle num_hint">&nbsp;</span></div>
                     <div class="col"><span id="l1_1" class="num">&nbsp;</span></div>
                     <div class="col">&nbsp;</div>
                 </div>
                 <div class="row">
                     <div class="col">&plus;</div>
+                    <div class="col"><span id="l2_3" class="num">&nbsp;</span></div>
+                    <div class="col"><span id="l2_2" class="num">&nbsp;</span></div>
                     <div class="col"><span id="l2_1" class="num">&nbsp;</span></div>
                     <div class="col">&nbsp;</div>
                 </div>
                 <div class="row border-top border-bottom border-5">
+                    <div class="col position-relative border border-1 border-dashed border-secondary">
+                        <input id="a4" type="number" class="bg-dark text-white form-control text-center border-0 p-0" pattern="[0-9]*" inputmode="numeric" maxlength="1" max="9" min="0"/>
+                        <span class="position-absolute top-0 answer text-danger"></span>
+                    </div>
+                    <div class="col position-relative border border-1 border-dashed border-secondary">
+                        <input id="a3" type="number" class="bg-dark text-white form-control text-center border-0 p-0" pattern="[0-9]*" inputmode="numeric" maxlength="1" max="9" min="0"/>
+                        <span class="position-absolute top-0 answer text-danger"></span>
+                    </div>
                     <div class="col position-relative border border-1 border-dashed border-secondary">
                         <input id="a2" type="number" class="bg-dark text-white form-control text-center border-0 p-0" pattern="[0-9]*" inputmode="numeric" maxlength="1" max="9" min="0"/>
                         <span class="position-absolute top-0 answer text-danger"></span>
