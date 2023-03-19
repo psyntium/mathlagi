@@ -149,6 +149,10 @@
                 setFontSize(fs);
                 return;
             }
+            if ($("#math-content").eq(0).width() + 20 < $("#math-content").eq(0)[0].scrollWidth) {
+                console.log($("#math-content").eq(0).width() + " : " + $("#math-content").eq(0)[0].scrollWidth)
+                return;
+            }
             if (fs < 1000) resizeFont();
         }
 
@@ -244,47 +248,96 @@
         function setNumHint(that) {
             const $numEl = $(that.currentTarget);
             const num = toInt($numEl.html())
-            const $hintEl = $numEl.next(".num_hint");
-            if ($hintEl.length === 0) return;
 
+            const $hintEl = $numEl.next(".num_hint");
+            const hintNum = toInt($hintEl.html())
+
+            if ($hintEl.length === 0) return;
+            
+            const hasHint = $numEl.hasClass("text-decoration-line-through");
+            const isBorrowed = hasHint && (hintNum % 10 - num !== 0)
+            
+            var newHintNum = hintNum;
 
             if (operation === "&minus;") {
                 const $prevEl = $numEl.parent().prev().find(".num").eq(0);
                 if ($prevEl.length === 0) return;
+                if (num === 0 && hintNum === 9) return;
 
-                var hintNum = toInt($hintEl.html())
-                if (hintNum > 0) {
-                    $numEl.removeClass("text-decoration-line-through");
-                    $hintEl.html("")
-                    setSubHint($numEl, 0)
+                $numEl.removeClass("text-decoration-line-through");
+
+                if (hasHint) {
+                    if (hintNum > 9)
+                        newHintNum = hintNum % 10;
+                    else
+                        newHintNum = hintNum + 10;
                 } else {
-                    $numEl.addClass("text-decoration-line-through");
-                    $hintEl.html(num+10)
-                    setSubHint($numEl, num+10)
+                    newHintNum = num + 10
                 }
+                console.log({ newHintNum, hintNum, num })
+
+                if (newHintNum === num) newHintNum = ""
+
+                if (newHintNum !== "") {
+                    $numEl.addClass("text-decoration-line-through");
+                }
+
+                $hintEl.html(newHintNum);
+
+                setSubHint($numEl, !isBorrowed);
+
             } else if (operation === "&plus;") {
-                var hintNum = toInt($hintEl.html())
+                $numEl.removeClass("text-decoration-line-through");
+
                 hintNum++;
                 hintNum = hintNum % lSize;
                 if (hintNum === 0) hintNum = ""
                 $hintEl.html(hintNum)
+                if (hintNum)
+                    $numEl.addClass("text-decoration-line-through");
             }
         }
 
-        function setSubHint(el, hNum) {
+        function setSubHint(el, returned) {
             const $numEl = el.parent().prev().find(".num").eq(0);
-            var num = toInt($numEl.html());
-            num--;
-            if (num < 0) num = 9;
-            const $hintEl = $numEl.parent().find(".num_hint").eq(0);
+            const num = toInt($numEl.html());
 
-            if (!hNum) {
-                $numEl.removeClass("text-decoration-line-through");
-                $hintEl.html("")
+            const $hintEl = $numEl.parent().find(".num_hint").eq(0);
+            const hintNum = toInt($hintEl.html())
+
+            if ($hintEl.length === 0) return;
+            
+            const hasHint = $numEl.hasClass("text-decoration-line-through");
+            const isBorrowed = hasHint && (hintNum % 10 - num !== 0)
+            
+            var newHintNum = hintNum;
+
+            $numEl.removeClass("text-decoration-line-through");
+
+            var borrow = false;
+            if (hasHint) {
+                if (num === 0 && hintNum === 9)
+                    newHintNum = num;
+                else if (isBorrowed)
+                    newHintNum = hintNum + 1;
+                else 
+                    newHintNum = hintNum - 1;
             } else {
-                $numEl.addClass("text-decoration-line-through");
-                $hintEl.html(num)
+                newHintNum = num - 1;
+                if (num === 0) borrow = true;
             }
+
+            if (newHintNum < 0) newHintNum += 10;
+            if (newHintNum === num) newHintNum = ""
+            
+            if (newHintNum !== "") {
+                $numEl.addClass("text-decoration-line-through");
+            }
+
+            $hintEl.html(newHintNum);
+
+            if (num === 0)
+                setSubHint($numEl, borrow);
         }
 
         function mathSum(arr) {
