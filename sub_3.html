@@ -63,6 +63,7 @@ math_q_size: 20
             saveAnswer();
 
             $(".mark0").html("").removeClass("text-success").removeClass("text-danger");
+            $(".answer").html("");
             $("#math-content input").prop('readonly', true);
             $("#btnSubmit").prop('disabled', true);
 
@@ -80,6 +81,7 @@ math_q_size: 20
                 aList[currentQ].m1 = true;
             } else {
                 $("#mark1").html("&cross;").addClass("text-danger")
+                setCorrectAnswer(a.a1, 1)
             }
 
             if (a.a2 === a2) {
@@ -87,9 +89,38 @@ math_q_size: 20
                 aList[currentQ].m2 = true;
             } else {
                 $("#mark2").html("&cross;").addClass("text-danger")
+                setCorrectAnswer(a.a2, 2)
             }
 
             if (aList[currentQ].m1 && aList[currentQ].m2) aList[currentQ].m = true;
+        }
+
+        function setCorrectAnswer(a, l) {
+            if (l) l = l + "_"
+            else l = ""
+            const arr = []
+            for (var i = 10; i > 0; i--) {
+                if (a) {
+                    const aa = getDigit(a, i)
+                    if (!aa && arr.length === 0) continue;
+
+                    arr.push(aa);
+                    $("#ah" + l + i).html(aa);
+                }
+
+                // const b = aList[currentQ]["a" + i];
+                // const brr = []
+
+                // if (b) {
+                //     for (var j = 10; j > 0; j--) {
+                //         const bb = getDigit(b, j)
+                //         if (!bb && brr.length === 0) continue;
+
+                //         brr.push(bb);
+                //         $("#a" + i + "_" + j).val(bb);
+                //     }
+                // }
+            }
         }
 
         function checkAnswerAll() {
