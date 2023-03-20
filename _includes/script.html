@@ -166,7 +166,6 @@
                 return;
             }
             if ($("#math-content").eq(0).width() + 20 < $("#math-content").eq(0)[0].scrollWidth) {
-                console.log($("#math-content").eq(0).width() + " : " + $("#math-content").eq(0)[0].scrollWidth)
                 return;
             }
             if (fs < 1000) resizeFont();
@@ -310,7 +309,6 @@
                 } else {
                     newHintNum = num + 10
                 }
-                console.log({ newHintNum, hintNum, num })
 
                 if (newHintNum === num) newHintNum = ""
 
