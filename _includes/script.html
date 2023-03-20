@@ -176,8 +176,10 @@
             var hSize = toInt(size / 6)
             if (hSize < 20) hSize = 20;
             var nSize = toInt(size / 5)
-            if (nSize < 10) nSize = 20;
+            if (nSize < 20) nSize = 20;
             var iSize = toInt(size / 3) * 2;
+            var aSize = toInt(iSize / 3);
+            if (aSize < 20) aSize = 20;
             $("#math-content").css({ 'font-size': size + "px" });
             $("#math-content input").css({ 'font-size': iSize + "px" });
             $("#math-content>div.row").css({ "line-height" : size + "px" });
@@ -186,7 +188,8 @@
             $("#score").css({ 'font-size': hSize + "px" });
             $(".num_hint").css({ 'font-size': nSize + "px" });
             $(".num_hint_right").css({ 'font-size': nSize + "px" });
-            $(".answer").css({ 'font-size': toInt(size/3) + "px" });
+            $(".answer").css({ 'font-size': aSize + "px" });
+            $(".answer").css({ 'line-height': aSize + "px" });
             $(".mark0").css({ 'font-size': iSize + "px" });
             $(".symbol0").css({ 'font-size': iSize + "px" });
             $("#mark").css({ 'font-size': iSize + "px" });

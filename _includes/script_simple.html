@@ -12,34 +12,68 @@
             const a = aList[pos].a;
             aList[pos].m = false;
 
-            var corrent = false;
+            var correct = false;
+            var answer = -10000
             switch (operation) {
                 case "&minus;":
-                    if (mathSub(q) === a) corrent = true;
+                    answer = mathSub(q);
                     break;
                 case "&plus;":
-                    if (mathSum(q) === a) corrent = true;
+                    answer = mathSum(q);
                     break;
                 case "&Cross;":
-                    if (mathMul(q) === a) corrent = true;
+                    answer = mathMul(q);
                     break;
                 case "&divide;":
-                    if (mathDiv(q) === a) corrent = true;
+                    answer = mathDiv(q);
                     break;
             }
 
-            if (corrent) {
+            if (answer === a) correct = true;
+
+            if (correct) {
                 if (!noStyleChange)
                     $("#mark").html("&check;").addClass("text-success")
                 aList[pos].m = true;
             } else {
-                if (!noStyleChange)
+                if (!noStyleChange) {
                     $("#mark").html("&cross;").addClass("text-danger")
+                    setCorrectAnswer(answer);
+                }
             }
 
             if (!noStyleChange) {
                 $("#math-content input").prop('readonly', true);
                 $("#btnSubmit").prop('disabled', true);
+            }
+        }
+
+        function setCorrectAnswer(a) {
+            $(".answer").html("")
+
+            const arr = []
+            for (var i = 10; i > 0; i--) {
+                if (a) {
+                    const aa = getDigit(a, i)
+                    if (!aa && arr.length === 0) continue;
+
+                    arr.push(aa);
+                    console.log({ aa, i })
+                    $(".answer").eq(0 - i).html(aa);
+                }
+
+                // const b = aList[currentQ]["a" + i];
+                // const brr = []
+
+                // if (b) {
+                //     for (var j = 10; j > 0; j--) {
+                //         const bb = getDigit(b, j)
+                //         if (!bb && brr.length === 0) continue;
+
+                //         brr.push(bb);
+                //         $("#a" + i + "_" + j).val(bb);
+                //     }
+                // }
             }
         }
 
