@@ -1,0 +1,156 @@
+---
+title: Subtraction
+subtitle: sub
+symbol: "&minus;"
+level: 3
+
+math_start: 100
+math_end: 999
+math_row_size: 3
+math_q_size: 20
+---
+<!doctype html>
+<html lang="en" class="h-100">
+
+{% include head.html %}
+
+<body class="d-flex h-100 bg-dark text-white text-center user-select-none">
+
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        {% include header2.html %}
+
+        <main class="overflow-auto px-3">
+            <div id="math-content" class="font-monospace my-5">
+
+                <div class="row flex-nowrap">
+                    <div class="col">&nbsp;</div>
+                    <div class="col position-relative"><span id="l1_3" class="num">&nbsp;</span><span class="position-absolute start-50 translate-middle num_hint">&nbsp;</span></div>
+                    <div class="col position-relative"><span id="l1_2" class="num">&nbsp;</span><span class="position-absolute start-50 translate-middle num_hint">&nbsp;</span></div>
+                    <div class="col position-relative"><span id="l1_1" class="num">&nbsp;</span><span class="position-absolute start-50 translate-middle num_hint">&nbsp;</span></div>
+                    <div class="col">&nbsp;</div>
+                </div>
+                <div class="row flex-nowrap">
+                    <div class="col">&minus;</div>
+                    <div class="col"><span id="l2_3" class="num">&nbsp;</span></div>
+                    <div class="col"><span id="l2_2" class="num">&nbsp;</span></div>
+                    <div class="col"><span id="l2_1" class="num">&nbsp;</span></div>
+                    <div class="col">&nbsp;</div>
+                </div>
+                <div class="row flex-nowrap border-top border-5">
+                    <div class="col mark0">&nbsp;</div>
+                    <div class="col position-relative border border-1 border-dashed border-secondary">
+                        <input id="a1_3" type="number" class="bg-dark text-white form-control text-center border-0 p-0" pattern="[0-9]*" inputmode="numeric" maxlength="1" max="9" min="0"/>
+                        <span class="position-absolute top-0 answer text-danger"></span>
+                    </div>
+                    <div class="col position-relative border border-1 border-dashed border-secondary">
+                        <input id="a1_2" type="number" class="bg-dark text-white form-control text-center border-0 p-0" pattern="[0-9]*" inputmode="numeric" maxlength="1" max="9" min="0"/>
+                        <span class="position-absolute top-0 answer text-danger"></span>
+                    </div>
+                    <div class="col position-relative border border-1 border-dashed border-secondary">
+                        <input id="a1_1" type="number" class="bg-dark text-white form-control text-center border-0 p-0" pattern="[0-9]*" inputmode="numeric" maxlength="1" max="9" min="0"/>
+                        <span class="position-absolute top-0 answer text-danger"></span>
+                    </div>
+                    <div id="mark1" class="col mark0">&nbsp;</div>
+                </div>
+                <div class="row flex-nowrap">
+                    <div class="col">&minus;</div>
+                    <div class="col"><span id="l3_3" class="num">&nbsp;</span></div>
+                    <div class="col"><span id="l3_2" class="num">&nbsp;</span></div>
+                    <div class="col"><span id="l3_1" class="num">&nbsp;</span></div>
+                    <div class="col">&nbsp;</div>
+                </div>
+                <div class="row flex-nowrap border-top border-bottom border-5">
+                    <div class="col mark0">&nbsp;</div>
+                    <div class="col position-relative border border-1 border-dashed border-secondary">
+                        <input id="a2_3" type="number" class="bg-dark text-white form-control text-center border-0 p-0" pattern="[0-9]*" inputmode="numeric" maxlength="1" max="9" min="0"/>
+                        <span class="position-absolute top-0 answer text-danger"></span>
+                    </div>
+                    <div class="col position-relative border border-1 border-dashed border-secondary">
+                        <input id="a2_2" type="number" class="bg-dark text-white form-control text-center border-0 p-0" pattern="[0-9]*" inputmode="numeric" maxlength="1" max="9" min="0"/>
+                        <span class="position-absolute top-0 answer text-danger"></span>
+                    </div>
+                    <div class="col position-relative border border-1 border-dashed border-secondary">
+                        <input id="a2_1" type="number" class="bg-dark text-white form-control text-center border-0 p-0" pattern="[0-9]*" inputmode="numeric" maxlength="1" max="9" min="0"/>
+                        <span class="position-absolute top-0 answer text-danger"></span>
+                    </div>
+                    <div id="mark2" class="col mark0">&nbsp;</div>
+                </div>
+                <div class="row flex-nowrap border-top border-3 mt-1"></div>
+
+            </div>
+        </main>
+
+{% include footer.html %}
+
+    </div>
+
+{% include toasts.html %}
+
+{% include scripts.html %}
+
+{% include script.html %}
+
+    <script>
+        function checkAnswer() {
+            saveAnswer();
+
+            $(".mark0").html("").removeClass("text-success").removeClass("text-danger");
+            $("#math-content input").prop('readonly', true);
+            $("#btnSubmit").prop('disabled', true);
+
+            const q = qList[currentQ];
+            const a1 = aList[currentQ].a1;
+            const a2 = aList[currentQ].a2;
+            const a = mathSub2(q);
+
+            aList[currentQ].m1 = false;
+            aList[currentQ].m2 = false;
+            aList[currentQ].m = false;
+
+            if (a.a1 === a1) {
+                $("#mark1").html("&check;").addClass("text-success")
+                aList[currentQ].m1 = true;
+            } else {
+                $("#mark1").html("&cross;").addClass("text-danger")
+            }
+
+            if (a.a2 === a2) {
+                $("#mark2").html("&check;").addClass("text-success")
+                aList[currentQ].m2 = true;
+            } else {
+                $("#mark2").html("&cross;").addClass("text-danger")
+            }
+
+            if (aList[currentQ].m1 && aList[currentQ].m2) aList[currentQ].m = true;
+        }
+
+        function checkAnswerAll() {
+            checkAnswer();
+
+            qList.forEach(function(q, i) {
+                const a1 = aList[i].a1;
+                const a2 = aList[i].a2;
+                const a = mathSub2(q);
+
+                aList[i].m1 = false;
+                aList[i].m2 = false;
+                aList[i].m = false;
+
+                if (a.a1 === a1) aList[i].m1 = true;
+                if (a.a2 === a2) aList[i].m2 = true;
+                if (aList[i].m1 && aList[i].m2) aList[i].m = true;
+            })
+            const c = aList.filter(function (a) {
+                return a.m;
+            })
+
+            const cp = parseInt((c.length * 100) / qSize);
+            $("#score").html(cp + "%")
+            $(".toast").removeClass("show")
+            stopTime = true;
+        }
+    </script>
+
+</body>
+
+</html>

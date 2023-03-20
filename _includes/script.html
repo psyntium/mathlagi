@@ -60,6 +60,22 @@
                         q[0] += q[2]
                     }
                 })
+            } else if (operation === "&minus;" && lSize === 3) {
+                qList.forEach(function (q) {
+                    var diff = q[0] - q[1];
+                    const endPos = Math.pow(10, (end + "").length-1)
+                    
+                    if (diff > endPos)
+                        q[2] = q[2];
+                    else if (end - q[0] < (endPos * 2))
+                        q[1] -= endPos;
+                    else
+                        q[0] += endPos;
+
+                    diff = q[0] - q[1];
+
+                    q[2] = genNum(endPos, diff)
+                })
             }
 
             time = getTime();
@@ -164,6 +180,7 @@
             var iSize = toInt(size / 3) * 2;
             $("#math-content").css({ 'font-size': size + "px" });
             $("#math-content input").css({ 'font-size': iSize + "px" });
+            $("#math-content>div.row").css({ "line-height" : size + "px" });
             $("#timer").css({ 'font-size': hSize + "px" });
             $("#posQ").css({ 'font-size': hSize + "px" });
             $("#score").css({ 'font-size': hSize + "px" });
@@ -354,6 +371,12 @@
                 t -= toInt(i);
             })
             return t
+        }
+
+        function mathSub2(arr) {
+            const a1 = arr[0] - arr[1];
+            const a2 = a1 - arr[2]
+            return { a1, a2 }
         }
 
         function mathMul(arr) {
