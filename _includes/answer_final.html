@@ -1,0 +1,24 @@
+                <div class="row border-top border-bottom border-5 border-dark">
+{% for i in (1..page.answer_col_size) reversed %}
+{% assign start = page.answer_start_input | default: 0 %}
+{% assign start = page.answer_col_size | minus: start | plus: 1 %}
+{% if i == page.answer_col_size and page.symbol == "&minus;" %}
+                    <div class="col">&nbsp;</div>
+{% elsif i > start %}
+                    <div class="col">&nbsp;</div>
+{% else %}
+                    <div class="col position-relative border border-1 border-dashed border-secondary">
+                        <input id="a{{ page.answer_file_level }}{{ i }}" type="number" class="form-control text-center border-0 p-0" pattern="[0-9]*" inputmode="numeric" maxlength="1" max="9" min="0"/>
+                        <span class="position-absolute top-0 answer text-danger"></span>
+                    </div>
+{% endif %}
+{% endfor %}
+{% assign markNum = "" %}
+{% if page.math_row_size > 2 %}
+{% unless page.symbol == "&plus;"%}
+{% assign markNum = page.math_row_size | minus: 1 %}
+{% endunless %}
+{% endif %}
+                    <div id="mark{{ markNum }}" class="col mark0">&nbsp;</div>
+                </div>
+                <div class="row border-top border-3 mt-1 border-dark"></div>

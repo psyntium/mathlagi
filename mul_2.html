@@ -4,6 +4,10 @@ subtitle: mul
 symbol: "&Cross;"
 level: 2
 
+answer_file_level: ""
+answer_col_size: 5
+answer_start_input: 2
+
 math_start: 11
 math_end: 99
 math_row_size: 2
@@ -14,7 +18,7 @@ math_q_size: 20
 
 {% include head.html %}
 
-<body class="d-flex h-100 bg-dark text-white text-center user-select-none">
+<body class="d-flex h-100 text-center user-select-none">
 
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
         {% include header2.html %}
@@ -22,77 +26,27 @@ math_q_size: 20
         <main class="overflow-auto px-3">
             <div id="math-content" class="font-monospace my-5">
 
-                <div class="row ">
-                    <div class="col"></div>
-                    <div class="col"></div>
-                    <div class="col"></div>
-                    <div class="col position-relative"><span id="l1_2" class="num">&nbsp;</span><span class="position-absolute num_hint">&nbsp;</span></div>
-                    <div class="col"><span id="l1_1" class="num">&nbsp;</span></div>
-                    <div class="col"></div>
-                </div>
-                <div class="row">
-                    <div class="col"></div>
-                    <div class="col"></div>
-                    <div class="col">&Cross;</div>
-                    <div class="col"><span id="l2_2" class="num">&nbsp;</span></div>
-                    <div class="col"><span id="l2_1" class="num">&nbsp;</span></div>
-                    <div class="col"></div>
-                </div>
-                <div class="row border-top border-bottom border-5">
-                    <div class="col"></div>
-                    <div class="col"></div>
-                    <div class="col position-relative border-start border-1">
-                        <input id="a1_3" type="number" class="bg-dark text-white form-control text-center border-0 p-0" pattern="[0-9]*" inputmode="numeric" maxlength="1" max="9" min="0"/>
-                        <span class="position-absolute top-0 answer text-danger"></span>
-                    </div>
-                    <div class="col position-relative border-start border-1">
-                        <input id="a1_2" type="number" class="bg-dark text-white form-control text-center border-0 p-0" pattern="[0-9]*" inputmode="numeric" maxlength="1" max="9" min="0"/>
-                        <span class="position-absolute top-0 answer text-danger"></span>
-                    </div>
-                    <div class="col position-relative border-start border-1 border-end">
-                        <input id="a1_1" type="number" class="bg-dark text-white form-control text-center border-0 p-0" pattern="[0-9]*" inputmode="numeric" maxlength="1" max="9" min="0"/>
-                        <span class="position-absolute top-0 answer text-danger"></span>
-                    </div>
-                    <div class="col"></div>
-                </div>
-                <div class="row border-top border-bottom border-5">
-                    <div class="col text-secondary symbol0">&plus;</div>
-                    <div class="col position-relative border-start border-1">
-                        <input id="a2_3" type="number" class="bg-dark text-white form-control text-center border-0 p-0" pattern="[0-9]*" inputmode="numeric" maxlength="1" max="9" min="0"/>
-                        <span class="position-absolute top-0 answer text-danger"></span>
-                    </div>
-                    <div class="col position-relative border-start border-1">
-                        <input id="a2_2" type="number" class="bg-dark text-white form-control text-center border-0 p-0" pattern="[0-9]*" inputmode="numeric" maxlength="1" max="9" min="0"/>
-                        <span class="position-absolute top-0 answer text-danger"></span>
-                    </div>
-                    <div class="col position-relative border-start border-1 border-end">
-                        <input id="a2_1" type="number" class="bg-dark text-white form-control text-center border-0 p-0" pattern="[0-9]*" inputmode="numeric" maxlength="1" max="9" min="0"/>
-                        <span class="position-absolute top-0 answer text-danger"></span>
-                    </div>
-                    <div class="col"></div>
-                    <div class="col"></div>
-                </div>
-                <div class="row border-top border-bottom border-5">
-                    <div class="col"></div>
-                    <div class="col position-relative border-start border-1">
-                        <input id="a4" type="number" class="bg-dark text-white form-control text-center border-0 p-0" pattern="[0-9]*" inputmode="numeric" maxlength="1" max="9" min="0"/>
-                        <span class="position-absolute top-0 answer text-danger"></span>
-                    </div>
-                    <div class="col position-relative border-start border-1">
-                        <input id="a3" type="number" class="bg-dark text-white form-control text-center border-0 p-0" pattern="[0-9]*" inputmode="numeric" maxlength="1" max="9" min="0"/>
-                        <span class="position-absolute top-0 answer text-danger"></span>
-                    </div>
-                    <div class="col position-relative border-start border-1">
-                        <input id="a2" type="number" class="bg-dark text-white form-control text-center border-0 p-0" pattern="[0-9]*" inputmode="numeric" maxlength="1" max="9" min="0"/>
-                        <span class="position-absolute top-0 answer text-danger"></span>
-                    </div>
-                    <div class="col position-relative border-start border-1 border-end">
-                        <input id="a1" type="number" class="bg-dark text-white form-control text-center border-0 p-0" pattern="[0-9]*" inputmode="numeric" maxlength="1" max="9" min="0"/>
-                        <span class="position-absolute top-0 answer text-danger"></span>
-                    </div>
-                    <div id="mark" class="col mark0"></div>
-                </div>
-                <div class="row border-top border-3 mt-1"></div>
+{% assign col_size = 4 %}
+{% assign level = 1 %}
+{% include question.html %}
+
+{% assign symbol = page.symbol %}
+{% assign level = 2 %}
+{% include question.html %}
+
+{% assign col_size = 5 %}
+{% assign level = 3 %}
+{% assign start_input = 3 %}
+{% include answer.html %}
+
+{% assign answer_symbol = "&plus;" %}
+{% assign level = 2 %}
+{% assign no_border = true %}
+{% assign start_input = false %}
+{% assign end_input = 2 %}
+{% include answer.html %}
+
+{% include answer_final.html %}
 
             </div>
         </main>

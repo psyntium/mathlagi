@@ -304,14 +304,10 @@
                 setSubHint($numEl, !isBorrowed);
 
             } else if (operation === "&plus;") {
-                $numEl.removeClass("text-decoration-line-through");
-
-                hintNum++;
-                hintNum = hintNum % lSize;
-                if (hintNum === 0) hintNum = ""
-                $hintEl.html(hintNum)
-                if (hintNum)
-                    $numEl.addClass("text-decoration-line-through");
+                newHintNum++;
+                newHintNum = newHintNum % lSize;
+                if (newHintNum === 0) newHintNum = ""
+                $hintEl.html(newHintNum)
             }
         }
 

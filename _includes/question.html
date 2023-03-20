@@ -1,0 +1,16 @@
+{% assign txt = "&nbsp;" %}
+{% if symbol %}
+{% assign txt = symbol %}
+{% endif %}
+
+                <div class="row">
+                    <div class="col">{{ txt }}</div>
+{% for i in (1..col_size) reversed %}
+{% if i == 1 and page.symbol == "&plus;" %}
+                    <div class="col"><span id="l{{ level }}_{{ i }}" class="num">&nbsp;</span></div>
+{% else %}
+                    <div class="col {% if level == 1 %}position-relative{% endif %}"><span id="l{{ level }}_{{ i }}" class="num">&nbsp;</span>{% if level == 1 %}<span class="position-absolute start-50 top-0 translate-middle num_hint">&nbsp;</span>{% endif %}</div>
+{% endif %}
+{% endfor %}
+                    <div class="col">&nbsp;</div>
+                </div>

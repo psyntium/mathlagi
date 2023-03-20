@@ -3,7 +3,7 @@
 
 {% include head.html %}
 
-<body class="d-flex h-100 text-center text-white bg-dark">
+<body class="d-flex h-100 text-center">
 
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
         {% include header.html %}
@@ -13,19 +13,19 @@
             <div id="math-content" class="font-monospace my-5">
 
                 <div class="row mt-5">
-                    <div class="col mb-3"><a href="{{ page.levels[0].url }}" class="btn btn-outline-{{ page.levels[0].color }} px-5" role="button">{{ page.levels[0].num }}</a></div>
-                    <div class="col mb-3"><a href="{{ page.levels[1].url }}" class="btn btn-outline-{{ page.levels[1].color }} px-5" role="button">{{ page.levels[1].num }}</a></div>
+                    <div class="col mb-3"><a href="{{ page.levels[0].url }}" class="btn btn-{{ page.levels[0].color }} px-5{% if page.levels[0].disabled %} disabled{% endif %}" role="button">{{ page.levels[0].num }}</a></div>
+                    <div class="col mb-3"><a href="{{ page.levels[1].url }}" class="btn btn-{{ page.levels[1].color }} px-5{% if page.levels[1].disabled %} disabled{% endif %}" role="button">{{ page.levels[1].num }}</a></div>
                 </div>
                 
                 <div class="row mb-5">
-                    <div class="col mb-3"><a href="{{ page.levels[2].url }}" class="btn btn-outline-{{ page.levels[2].color }} px-5" role="button">{{ page.levels[2].num }}</a></div>
-                    <div class="col mb-3"><a href="{{ page.levels[3].url }}" class="btn btn-outline-{{ page.levels[3].color }} px-5" role="button">{{ page.levels[3].num }}</a></div>
+                    <div class="col mb-3"><a href="{{ page.levels[2].url }}" class="btn btn-{{ page.levels[2].color }} px-5{% if page.levels[2].disabled %} disabled{% endif %}" role="button">{{ page.levels[2].num }}</a></div>
+                    <div class="col mb-3"><a href="{{ page.levels[3].url }}" class="btn btn-{{ page.levels[3].color }} px-5{% if page.levels[3].disabled %} disabled{% endif %}" role="button">{{ page.levels[3].num }}</a></div>
                 </div>
 
             </div>
         </main>
 
-        <footer class="mt-auto text-white-50 row d-grid border-top border-1 pt-5"></footer>
+        <footer class="mt-auto-50 row d-grid border-top border-1 pt-5"></footer>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"
