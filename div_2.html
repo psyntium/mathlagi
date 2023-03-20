@@ -72,8 +72,8 @@ math_q_size: 20
             $("#btnSubmit").prop('disabled', true);
 
             const q = qList[currentQ];
-            const a1 = aList[currentQ].a1;
-            const a2 = aList[currentQ].a2;
+            const a1 = toInt(aList[currentQ].a1);
+            const a2 = toInt(aList[currentQ].a2);
             const a = mathDiv2(q);
 
             aList[currentQ].m1 = false;
