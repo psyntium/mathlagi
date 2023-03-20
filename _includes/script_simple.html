@@ -48,32 +48,6 @@
             }
         }
 
-        function setCorrectAnswer(a) {
-            const arr = []
-            for (var i = 10; i > 0; i--) {
-                if (a) {
-                    const aa = getDigit(a, i)
-                    if (!aa && arr.length === 0) continue;
-
-                    arr.push(aa);
-                    $("#ah" + i).html(aa);
-                }
-
-                // const b = aList[currentQ]["a" + i];
-                // const brr = []
-
-                // if (b) {
-                //     for (var j = 10; j > 0; j--) {
-                //         const bb = getDigit(b, j)
-                //         if (!bb && brr.length === 0) continue;
-
-                //         brr.push(bb);
-                //         $("#a" + i + "_" + j).val(bb);
-                //     }
-                // }
-            }
-        }
-
         function checkAnswerAll() {
             checkAnswer();
             qList.forEach(function(q, i) {

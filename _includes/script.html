@@ -266,6 +266,21 @@
                 checkAnswer()
         }
 
+        function setCorrectAnswer(a, l) {
+            if (l) l = l + "_"
+            else l = ""
+            const arr = []
+            for (var i = 10; i > 0; i--) {
+                if (a) {
+                    const aa = getDigit(a, i)
+                    if (!aa && arr.length === 0) continue;
+
+                    arr.push(aa);
+                    $("#ah" + l + i).html(aa);
+                }
+            }
+        }
+
         function setNumHint(that) {
             const $numEl = $(that.currentTarget);
             const num = toInt($numEl.html())

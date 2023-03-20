@@ -29,11 +29,11 @@ math_q_size: 20
 {% include answer.html %}
 
                 <div class="row">
-                    <div class="col-2"><span id="l2_2" class="num">&nbsp;</span></div>
-                    <div class="col-2"><span id="l2_1" class="num">&nbsp;</span></div>
-                    <div class="col-2 border-top border-start border-5 border-dark"><span id="l1_3" class="num">&nbsp;</span></div>
-                    <div class="col-2 border-top border-5 border-dark"><span id="l1_2" class="num">&nbsp;</span></div>
-                    <div class="col-2 border-top border-5 border-dark"><span id="l1_1" class="num">&nbsp;</span></div>
+                    <div class="col-2 p-0"><span id="l2_2" class="num">&nbsp;</span></div>
+                    <div class="col-2 p-0"><span id="l2_1" class="num">&nbsp;</span></div>
+                    <div class="col-2 border-top border-start border-5 border-dark p-0"><span id="l1_3" class="num">&nbsp;</span></div>
+                    <div class="col-2 border-top border-5 border-dark p-0"><span id="l1_2" class="num">&nbsp;</span></div>
+                    <div class="col-2 border-top border-5 border-dark p-0"><span id="l1_1" class="num">&nbsp;</span></div>
                     <div class="col-1">&nbsp;</div>
                 </div>
 
@@ -85,6 +85,7 @@ math_q_size: 20
                 aList[currentQ].m1 = true;
             } else {
                 $("#mark1").html("&cross;").addClass("text-danger")
+                setCorrectAnswer(a.a1, 1)
             }
 
             if (a.a2 === a2) {
@@ -92,6 +93,7 @@ math_q_size: 20
                 aList[currentQ].m2 = true;
             } else {
                 $("#mark2").html("&cross;").addClass("text-danger")
+                setCorrectAnswer(a.a2, 2)
             }
 
             if (aList[currentQ].m1 && aList[currentQ].m2) aList[currentQ].m = true;
