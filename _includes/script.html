@@ -24,11 +24,11 @@
             $("#btnRight").click(nextQuestion)
             $("#btnLeft").click(prevQuestion)
             
-            $("#btnReset").click(function () {show($("#toastReset"))})
+            $("#btnRestart").click(function () {show($("#toastRestart"))})
             $("#btnSubmit").click(function () {show($("#toastSubmit"))})
             $("#btnSubmitAll").click(function () {show($("#toastSubmitAll"))})
 
-            $("#btnResetYes").click(function() {
+            $("#btnRestartYes").click(function() {
                 hide($(this).parents(".toast"));
                 init();
             })
