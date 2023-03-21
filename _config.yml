@@ -2,3 +2,6 @@ domain: psyntium.github.io       # if you want to force HTTPS, specify the domai
 url: https://psyntium.github.io  # the base hostname and protocol for your site, e.g. http://example.com
 baseurl: /mathlagi
 version: 0.5
+description: MathLagi application for children aged 7 to 9 is designed to help children improve their mathematical skills in a fun and engaging way. It includes exercises on fundamental mathematical concepts such as addition, subtraction, multiplication, and division, with customizable difficulty levels to suit the child's abilities. The app has an easy-to-use interface with clear instructions and feedback to help children understand their progress. Overall, MathLagi application is an effective tool for improving children's mathematical skills and knowledge.
+keywords: Math, Mathematics, MathLagi, Matematik, Addition, Tambah, Subtraction, Tolak, Multiplication, Darab, Division, Bahagi
+author: Aiman Shaharuddin
