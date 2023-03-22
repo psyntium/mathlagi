@@ -1,1 +1,1 @@
-https://psyntium.github.io/mathlagi/
+Migrated to https://psyntium.github.io/kirajap
